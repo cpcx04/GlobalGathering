@@ -1,4 +1,4 @@
-class LoginDto {
+class RegisterReponse {
 	String? id;
 	String? username;
 	String? email;
@@ -7,7 +7,7 @@ class LoginDto {
 	String? createdAt;
 	String? token;
 
-	LoginDto({
+	RegisterReponse({
 		this.id, 
 		this.username, 
 		this.email, 
@@ -17,15 +17,19 @@ class LoginDto {
 		this.token, 
 	});
 
-	factory LoginDto.fromJson(Map<String, dynamic> json) => LoginDto(
-				id: json['id'] as String?,
-				username: json['username'] as String?,
-				email: json['email'] as String?,
-				nombre: json['nombre'] as String?,
-				role: json['role'] as String?,
-				createdAt: json['createdAt'] as String?,
-				token: json['token'] as String?,
-			);
+	factory RegisterReponse.fromJson(Map<String, dynamic> json) {
+		return RegisterReponse(
+			id: json['id'] as String?,
+			username: json['username'] as String?,
+			email: json['email'] as String?,
+			nombre: json['nombre'] as String?,
+			role: json['role'] as String?,
+			createdAt: json['createdAt'] as String?,
+			token: json['token'] as String?,
+		);
+	}
+
+
 
 	Map<String, dynamic> toJson() => {
 				'id': id,

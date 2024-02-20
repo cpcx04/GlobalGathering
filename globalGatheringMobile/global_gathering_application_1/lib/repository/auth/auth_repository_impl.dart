@@ -1,47 +1,43 @@
 import 'dart:convert';
 
 import 'package:global_gathering_application_1/model/dto/login_dto.dart';
-import 'package:global_gathering_application_1/model/reponse/login/login_response.dart';
-import 'package:global_gathering_application_1/model/reponse/token/request_token_response.dart';
+import 'package:global_gathering_application_1/model/dto/register_dto.dart';
+import 'package:global_gathering_application_1/model/reponse/register_reponse.dart';
 import 'package:global_gathering_application_1/repository/auth/auth_repository.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
-class AuthRepositoryImpl extends AuthRepository {
-  final Client _httpClient = Client();
+class AuthRepositoryImpl implements AuthRepository {
+  final String baseUrl = 'http://localhost:8080';
 
   @override
-  Future<LoginResponse> login(LoginDto loginDto) async {
-    final response = await _httpClient.post(
-      Uri.parse(
-          'https://api.themoviedb.org/3/authentication/token/validate_with_login'),
+  Future<RegisterReponse> login(LoginDto loginDto) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzNkMmM0ODY1NzJhZmIyNDJjNmZlN2MxZGRjNjc3MSIsInN1YiI6IjVjYzZjYTBhMGUwYTI2NGVlZmVkYmQwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Lr-_SOXieFdDd-0CNEqipNgfEviSHDP0uX1sm_H8bUI'
       },
-      body: loginDto.toJson(),
+      body: jsonEncode(loginDto.toJson()),
     );
-    if (response.statusCode == 200) {
-      return LoginResponse.fromJson(json.decode(response.body));
+
+    if (response.statusCode == 201) {
+      return RegisterReponse.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to do login');
+      throw Exception('Failed to login');
     }
   }
 
   @override
-  Future<RequestTokenResponse> getRequestToken() async {
-    final response = await _httpClient.get(
-      Uri.parse('https://api.themoviedb.org/3/authentication/token/new'),
+  Future<void> register(RegisterDto registerDto) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/auth/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzNkMmM0ODY1NzJhZmIyNDJjNmZlN2MxZGRjNjc3MSIsInN1YiI6IjVjYzZjYTBhMGUwYTI2NGVlZmVkYmQwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Lr-_SOXieFdDd-0CNEqipNgfEviSHDP0uX1sm_H8bUI'
       },
+      body: jsonEncode(registerDto.toJson()),
     );
-    if (response.statusCode == 200) {
-      return RequestTokenResponse.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to do get request token');
+
+    if (response.statusCode != 201) {
+      throw Exception('Failed to register');
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:global_gathering_application_1/model/dto/login_dto.dart';
-import 'package:global_gathering_application_1/model/reponse/login/login_response.dart';
-import 'package:global_gathering_application_1/model/reponse/token/request_token_response.dart';
+import 'package:global_gathering_application_1/model/dto/register_dto.dart';
+import 'package:global_gathering_application_1/model/reponse/register_reponse.dart';
 
 abstract class AuthRepository {
-  Future<LoginResponse> login(LoginDto loginDto);
-  Future<RequestTokenResponse> getRequestToken();
+  Future<RegisterReponse> login(LoginDto loginDto);
+  Future<void> register(RegisterDto registerDto);
 }
