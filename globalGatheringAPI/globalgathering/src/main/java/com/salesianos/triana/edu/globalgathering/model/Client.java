@@ -19,9 +19,9 @@ import java.util.UUID;
 @Entity
 @SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Client implements UserDetails {

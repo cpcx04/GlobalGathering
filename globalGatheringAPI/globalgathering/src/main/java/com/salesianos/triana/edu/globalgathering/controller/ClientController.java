@@ -4,7 +4,8 @@ import com.salesianos.triana.edu.globalgathering.dto.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.Login;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
-import com.salesianos.triana.edu.globalgathering.security.jwt.*;
+import com.salesianos.triana.edu.globalgathering.security.jwt.JwtProvider;
+import com.salesianos.triana.edu.globalgathering.security.jwt.JwtUserResponse;
 import com.salesianos.triana.edu.globalgathering.service.ClientWorkerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -39,8 +40,13 @@ public class ClientController {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = JwtUserResponse.class)), examples = {
                             @ExampleObject(value = """
                                     {
-                                       
-                                                                         
+                                        "id": "694d4dec-e043-4c71-8f42-6706506a0fba",
+                                        "username": "cristian",
+                                        "email": "cristian@gmail.com",
+                                        "nombre": "Cristian Pulido",
+                                        "role": "ROLE_USER",
+                                        "createdAt": "20/02/2024 19:21:33",
+                                        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OTRkNGRlYy1lMDQzLTRjNzEtOGY0Mi02NzA2NTA2YTBmYmEiLCJpYXQiOjE3MDg0NTMzMDcsImV4cCI6MTcwODUzOTcwN30.ALbFZqNkPApSf86GtqErLLSuT1t92GN9pFy9-oliLF6_KQYBOtWwZUxPvi6bF745dD7_6nJFCz8B5f_CbfMX1Q"
                                     }
                                                                         """) }) }),
             @ApiResponse(responseCode = "400 Bad Request", description = "Register was not succesful", content = @Content),
@@ -60,10 +66,16 @@ public class ClientController {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = JwtUserResponse.class)),
                             examples = @ExampleObject(
                                     value = """
-                                    {
-                                        
-                                     }
-                                    """
+                                                    {
+                                                        "id": "694d4dec-e043-4c71-8f42-6706506a0fba",
+                                                        "username": "cristian",
+                                                        "email": "cristian@gmail.com",
+                                                        "nombre": "Cristian Pulido",
+                                                        "role": "ROLE_USER",
+                                                        "createdAt": "20/02/2024 19:21:33",
+                                                        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OTRkNGRlYy1lMDQzLTRjNzEtOGY0Mi02NzA2NTA2YTBmYmEiLCJpYXQiOjE3MDg0NTMyOTQsImV4cCI6MTcwODUzOTY5NH0.ZAflIBl20-TwoQXceLSC4h6xkxJmeSekd-8P6OgVVlEoHWi-W6_RTNwkHGVFkW9uD135X6ZSmm7QLwdG24OPKw"
+                                                    }
+                                            """
                             ))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid credentials")

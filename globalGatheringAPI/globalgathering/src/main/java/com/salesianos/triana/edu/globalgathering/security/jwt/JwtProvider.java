@@ -3,7 +3,6 @@ package com.salesianos.triana.edu.globalgathering.security.jwt;
 
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
-import org.springframework.security.core.userdetails.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -30,8 +29,6 @@ public class JwtProvider {
 
     @Value("${jwt.duration}")
     private int jwtLifeInDays;
-    //private int jwtLifeInMinutes;
-
     private JwtParser jwtParser;
 
     private SecretKey secretKey;
@@ -50,12 +47,15 @@ public class JwtProvider {
 
 
     public String generateToken(Authentication authentication) {
+        Object principal = authentication.getPrincipal();
 
-        Client user = (Client) authentication.getPrincipal();
-
-        return generateToken(user);
-
+        if (principal instanceof Client user) {
+            return generateToken(user);
+        } else {
+            throw new IllegalArgumentException("Authentication principal is not of type" + principal);
+        }
     }
+
 
     public String generateToken(Client user) {
         Date tokenExpirationDateTime =
