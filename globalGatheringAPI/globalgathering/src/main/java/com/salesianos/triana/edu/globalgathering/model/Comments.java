@@ -22,11 +22,11 @@ public class Comments {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "related_post_id")
     private Post relatedPost;
 
-    private String comment;
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "posted_by_id")

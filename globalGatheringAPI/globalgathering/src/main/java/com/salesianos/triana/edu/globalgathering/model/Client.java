@@ -22,10 +22,9 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client implements UserDetails {
+public abstract class Client implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")

@@ -17,7 +17,7 @@ class LoginWidget extends StatelessWidget {
               children: [
                 const TextField(
                   decoration: InputDecoration(
-                    labelText: "Email",
+                    labelText: "Username",
                   ),
                 ),
                 const SizedBox(height: 16),
