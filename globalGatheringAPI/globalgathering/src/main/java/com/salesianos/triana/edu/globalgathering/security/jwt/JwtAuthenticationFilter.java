@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import com.salesianos.triana.edu.globalgathering.security.jwt.*;
 
 import java.io.IOException;
 import java.util.Optional;

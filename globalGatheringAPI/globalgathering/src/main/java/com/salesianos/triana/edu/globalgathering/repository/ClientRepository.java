@@ -12,5 +12,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Optional<Client> findFirstByUsername(String username);
 
     Optional<Client> findByUsername(String username);
+
     boolean existsByUsernameIgnoreCase(String username);
 }

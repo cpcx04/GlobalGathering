@@ -26,6 +26,8 @@ public class ClientService {
         return clientRepository.findByUsername(currentUsername);
     }
 
+
+
     public boolean isAdmin(String username) {
         Optional<Client> user = clientRepository.findByUsername(username);
         return user.map(u -> u.getRole().equals("ADMIN")).orElse(false);

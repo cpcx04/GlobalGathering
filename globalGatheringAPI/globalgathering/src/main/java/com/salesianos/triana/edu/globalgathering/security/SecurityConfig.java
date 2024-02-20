@@ -1,6 +1,7 @@
 package com.salesianos.triana.edu.globalgathering.security;
 
 import com.salesianos.triana.edu.globalgathering.security.jwt.JwtAuthenticationFilter;
+import com.salesianos.triana.edu.globalgathering.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-        private final UserDetailsService userDetailsService;
+        private final UserDetailsServiceImpl userDetailsService;
         private final PasswordEncoder passwordEncoder;
 
         private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;

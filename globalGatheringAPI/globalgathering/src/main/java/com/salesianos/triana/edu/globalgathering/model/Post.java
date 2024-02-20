@@ -3,7 +3,6 @@ package com.salesianos.triana.edu.globalgathering.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Comments;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
@@ -31,11 +30,12 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "related_trip_id")
     private Event relatedTrip;
+    @OneToMany(mappedBy = "relatedPost", cascade = CascadeType.ALL)
+    private List<Comments> comments;
+
 
     private String url;
     private String caption;
 
-    @OneToMany()
-    private List<Comments> comments;
 
 }

@@ -22,10 +22,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@Table(name = "user_entity")
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User implements UserDetails {
+public class Client implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")

@@ -1,7 +1,6 @@
 package com.salesianos.triana.edu.globalgathering.security.jwt;
 
 
-
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
 import io.jsonwebtoken.*;
@@ -11,7 +10,6 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
 
 import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
