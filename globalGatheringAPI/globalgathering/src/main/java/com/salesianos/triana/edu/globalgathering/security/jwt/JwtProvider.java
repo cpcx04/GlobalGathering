@@ -3,6 +3,7 @@ package com.salesianos.triana.edu.globalgathering.security.jwt;
 
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
+import org.springframework.security.core.userdetails.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;

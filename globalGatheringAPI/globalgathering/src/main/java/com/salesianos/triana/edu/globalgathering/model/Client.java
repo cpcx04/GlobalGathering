@@ -24,7 +24,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client implements UserDetails {
+public abstract class Client implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")
