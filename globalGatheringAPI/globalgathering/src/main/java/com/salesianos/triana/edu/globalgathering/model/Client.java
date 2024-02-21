@@ -45,7 +45,6 @@ public abstract class Client implements UserDetails {
     @OneToMany(mappedBy = "createdBy")
     private List<Event> createdEvents;
 
-
     @ManyToMany
     @JoinTable(
             name = "client_liked_posts",
@@ -69,6 +68,7 @@ public abstract class Client implements UserDetails {
 
     private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
 
+    @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = "ROLE_";
@@ -80,24 +80,29 @@ public abstract class Client implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role));
     }
 
+    @Transient
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
 
+    @Transient
     @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
+    @Transient
     @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
+    @Transient
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 }
+
 
