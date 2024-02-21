@@ -5,12 +5,14 @@ abstract class RegisterState {}
 
 class RegisterInitial extends RegisterState {}
 
-class RegisterLoading extends RegisterState {}
+class DoRegisterLoading extends RegisterState {}
 
-class RegisterSuccess extends RegisterState {}
+class DoRegisterSuccess extends RegisterState {
+  final RegisterReponse userRegister;
+  DoRegisterSuccess(this.userRegister);
+}
 
-class RegisterFailure extends RegisterState {
+class DoRegisterError extends RegisterState {
   final String error;
-
-  RegisterFailure(this.error);
+  DoRegisterError(this.error);
 }

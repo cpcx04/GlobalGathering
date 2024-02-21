@@ -3,8 +3,7 @@ part of 'register_bloc.dart';
 @immutable
 abstract class RegisterEvent {}
 
-class RegisterButtonPressed extends RegisterEvent {
+class DoRegisterEvent extends RegisterEvent {
   final RegisterDto registerDto;
-
-  RegisterButtonPressed({required this.registerDto});
+  DoRegisterEvent({required this.registerDto});
 }

@@ -4,5 +4,5 @@ import 'package:global_gathering_application_1/model/reponse/register_reponse.da
 
 abstract class AuthRepository {
   Future<RegisterReponse> login(LoginDto loginDto);
-  Future<void> register(RegisterDto registerDto);
+  Future<RegisterReponse> register(RegisterDto registerDto);
 }

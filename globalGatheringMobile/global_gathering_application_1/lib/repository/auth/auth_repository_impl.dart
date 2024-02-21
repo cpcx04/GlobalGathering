@@ -7,7 +7,7 @@ import 'package:global_gathering_application_1/repository/auth/auth_repository.d
 import 'package:http/http.dart' as http;
 
 class AuthRepositoryImpl implements AuthRepository {
-  final String baseUrl = 'http://localhost:8080';
+  final String baseUrl = 'http://10.0.2.2:8080';
 
   @override
   Future<RegisterReponse> login(LoginDto loginDto) async {
@@ -27,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> register(RegisterDto registerDto) async {
+  Future<RegisterReponse> register(RegisterDto registerDto) async {
     final response = await http.post(
       Uri.parse('$baseUrl/auth/register'),
       headers: <String, String>{
@@ -36,7 +36,9 @@ class AuthRepositoryImpl implements AuthRepository {
       body: jsonEncode(registerDto.toJson()),
     );
 
-    if (response.statusCode != 201) {
+    if (response.statusCode == 201) {
+      return RegisterReponse.fromJson(json.decode(response.body));
+    } else {
       throw Exception('Failed to register');
     }
   }
