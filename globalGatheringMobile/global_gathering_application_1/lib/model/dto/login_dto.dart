@@ -1,39 +1,18 @@
 class LoginDto {
-	String? id;
-	String? username;
-	String? email;
-	String? nombre;
-	String? role;
-	String? createdAt;
-	String? token;
+  String? username;
+  String? password;
 
-	LoginDto({
-		this.id, 
-		this.username, 
-		this.email, 
-		this.nombre, 
-		this.role, 
-		this.createdAt, 
-		this.token, 
-	});
+  LoginDto({this.username, this.password});
 
-	factory LoginDto.fromJson(Map<String, dynamic> json) => LoginDto(
-				id: json['id'] as String?,
-				username: json['username'] as String?,
-				email: json['email'] as String?,
-				nombre: json['nombre'] as String?,
-				role: json['role'] as String?,
-				createdAt: json['createdAt'] as String?,
-				token: json['token'] as String?,
-			);
+  LoginDto.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
+    password = json['password'];
+  }
 
-	Map<String, dynamic> toJson() => {
-				'id': id,
-				'username': username,
-				'email': email,
-				'nombre': nombre,
-				'role': role,
-				'createdAt': createdAt,
-				'token': token,
-			};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['username'] = this.username;
+    data['password'] = this.password;
+    return data;
+  }
 }

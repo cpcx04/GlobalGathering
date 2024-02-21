@@ -17,8 +17,11 @@ INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGather
 INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml:1:1-33:12
 INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml:1:1-33:12
 MERGED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml:1:1-33:12
+MERGED from [:shared_preferences_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:webview_flutter_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\webview_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.webkit:webkit:1.7.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\42e5ec024b36c9bb75771580f651e3dd\transformed\webkit-1.7.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\4698c8389aab97a13185bbdca047bcf7\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -55,10 +58,16 @@ uses-sdk
 INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\android\app\src\main\AndroidManifest.xml
+MERGED from [:shared_preferences_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:webview_flutter_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\webview_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:webview_flutter_android] C:\Users\pulido.cachr23_trian\Desktop\GlobalGathering\globalGatheringMobile\global_gathering_application_1\build\webview_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.7.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\42e5ec024b36c9bb75771580f651e3dd\transformed\webkit-1.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.7.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\42e5ec024b36c9bb75771580f651e3dd\transformed\webkit-1.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\bd3b08f2286d6f234db7d387c15cb207\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\pulido.cachr23_trian\.gradle\caches\transforms-3\e0a375e6442995f1692e67f5fe828763\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44

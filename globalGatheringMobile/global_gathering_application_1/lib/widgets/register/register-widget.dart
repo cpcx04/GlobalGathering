@@ -37,21 +37,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     children: [
                       TextField(
                         controller: usernameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Username",
                         ),
                       ),
                       const SizedBox(height: 16),
                       TextField(
                         controller: fullNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Full Name",
                         ),
                       ),
                       const SizedBox(height: 16),
                       TextField(
                         controller: passwordController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Password",
                         ),
                         obscureText: true,
@@ -59,7 +59,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       const SizedBox(height: 16),
                       TextField(
                         controller: emailController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "Email Address",
                         ),
                       ),
@@ -76,7 +76,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
-                          // Aquí envías el evento al bloc
                           BlocProvider.of<RegisterBloc>(context).add(
                             RegisterButtonPressed(
                               registerDto: RegisterDto(

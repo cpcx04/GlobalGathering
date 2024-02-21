@@ -12,9 +12,9 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<RegisterReponse> login(LoginDto loginDto) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'),
+      Uri.parse('http://10.0.2.2:8080/auth/login'),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
       },
       body: jsonEncode(loginDto.toJson()),
     );
