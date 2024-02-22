@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.mapping.Set;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +30,9 @@ public class Event {
     private double longitude;
     private LocalDateTime date;
     private double price;
+
+    private List<Places> categoria;
+    private List<Conditions> requerido;
 
     @ManyToOne
     @JoinColumn(name = "post_related_id")
