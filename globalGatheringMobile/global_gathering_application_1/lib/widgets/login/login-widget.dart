@@ -55,7 +55,15 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
               builder: (context, state) {
                 if (state is DoLoginSuccess) {
-                  return HomePage(name: state.userLogin.nombre!);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(name: state.userLogin.nombre!),
+                      ),
+                    );
+                  });
                 } else if (state is DoLoginError) {
                   return const Text('Login error');
                 } else if (state is DoLoginLoading) {
