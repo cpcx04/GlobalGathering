@@ -1,7 +1,7 @@
 package com.salesianos.triana.edu.globalgathering.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.salesianos.triana.edu.globalgathering.dto.ClientResponse;
+import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

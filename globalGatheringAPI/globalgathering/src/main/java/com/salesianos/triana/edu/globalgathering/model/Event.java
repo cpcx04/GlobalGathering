@@ -26,17 +26,16 @@ public class Event {
     private UUID id;
 
     private String name;
+    private String descripcion;
+    private String url;
     private double latitude;
     private double longitude;
     private LocalDateTime date;
     private double price;
 
-    private List<Places> categoria;
-    private List<Conditions> requerido;
-
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_related_id")
-    private Post postRelated;
+    private List<Post> postRelated;
 
     @ManyToOne
     @JoinColumn(name = "created_by_id")

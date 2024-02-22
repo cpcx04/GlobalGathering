@@ -30,6 +30,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "related_trip_id")
     private Event relatedTrip;
+
     @OneToMany(mappedBy = "relatedPost", cascade = CascadeType.ALL)
     private List<Comments> comments;
 

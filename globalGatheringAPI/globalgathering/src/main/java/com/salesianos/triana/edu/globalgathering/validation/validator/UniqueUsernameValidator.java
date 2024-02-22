@@ -1,7 +1,7 @@
 package com.salesianos.triana.edu.globalgathering.validation.validator;
 
 
-import com.salesianos.triana.edu.globalgathering.service.ClientService;
+import com.salesianos.triana.edu.globalgathering.service.client.ClientService;
 import com.salesianos.triana.edu.globalgathering.validation.annotation.UniqueUsername;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

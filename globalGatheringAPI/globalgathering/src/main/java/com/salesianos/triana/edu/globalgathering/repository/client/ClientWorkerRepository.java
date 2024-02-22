@@ -1,4 +1,4 @@
-package com.salesianos.triana.edu.globalgathering.repository;
+package com.salesianos.triana.edu.globalgathering.repository.client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

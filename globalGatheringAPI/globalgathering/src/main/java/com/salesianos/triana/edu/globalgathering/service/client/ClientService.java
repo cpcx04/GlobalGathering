@@ -1,7 +1,7 @@
-package com.salesianos.triana.edu.globalgathering.service;
+package com.salesianos.triana.edu.globalgathering.service.client;
 
 import com.salesianos.triana.edu.globalgathering.model.Client;
-import com.salesianos.triana.edu.globalgathering.repository.ClientRepository;
+import com.salesianos.triana.edu.globalgathering.repository.client.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

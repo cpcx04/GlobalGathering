@@ -1,4 +1,4 @@
-package com.salesianos.triana.edu.globalgathering.dto;
+package com.salesianos.triana.edu.globalgathering.dto.user;
 
 import com.salesianos.triana.edu.globalgathering.validation.annotation.UniqueUsername;
 import jakarta.validation.constraints.Email;

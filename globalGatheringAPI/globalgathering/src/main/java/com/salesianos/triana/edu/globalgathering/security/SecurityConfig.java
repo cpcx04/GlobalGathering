@@ -1,7 +1,7 @@
 package com.salesianos.triana.edu.globalgathering.security;
 
 import com.salesianos.triana.edu.globalgathering.security.jwt.JwtAuthenticationFilter;
-import com.salesianos.triana.edu.globalgathering.service.UserDetailsServiceImpl;
+import com.salesianos.triana.edu.globalgathering.service.client.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
