@@ -4,7 +4,7 @@ import com.salesianos.triana.edu.globalgathering.dto.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.Login;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
-import com.salesianos.triana.edu.globalgathering.security.jwt.JwtProvider;
+import com.salesianos.triana.edu.globalgathering.security.jwt.*;
 import com.salesianos.triana.edu.globalgathering.security.jwt.JwtUserResponse;
 import com.salesianos.triana.edu.globalgathering.service.ClientWorkerService;
 import io.swagger.v3.oas.annotations.Operation;

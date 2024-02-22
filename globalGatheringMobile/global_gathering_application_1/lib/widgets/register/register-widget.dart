@@ -59,7 +59,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             },
             builder: (context, state) {
               if (state is DoRegisterSuccess) {
-                return HomePage(name: state.userRegister.nombre!);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          HomePage(name: state.userRegister.nombre!),
+                    ),
+                  );
+                });
               } else if (state is DoRegisterError) {
                 return const Text('Register failure');
               } else if (state is DoRegisterLoading) {
