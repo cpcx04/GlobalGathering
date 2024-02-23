@@ -35,8 +35,6 @@ public class Post {
     private List<Comments> comments;
 
 
-    private String url;
-    private String caption;
 
 
 }

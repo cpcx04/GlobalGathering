@@ -28,6 +28,7 @@ public class Event {
     private String name;
     private String descripcion;
     private String url;
+
     private double latitude;
     private double longitude;
     private LocalDateTime date;
