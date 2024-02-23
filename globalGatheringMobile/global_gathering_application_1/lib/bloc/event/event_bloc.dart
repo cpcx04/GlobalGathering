@@ -4,9 +4,9 @@ import 'package:meta/meta.dart';
 part 'event_event.dart';
 part 'event_state.dart';
 
-class EventBloc extends Bloc<EventEvent, EventState> {
+class EventBloc extends Bloc<GetEventEvent, EventState> {
   EventBloc() : super(EventInitial()) {
-    on<EventEvent>((event, emit) {
+    on<GetEventEvent>((event, emit) {
       // TODO: implement event handler
     });
   }
