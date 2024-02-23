@@ -42,6 +42,8 @@ public abstract class Client implements UserDetails {
 
     private String email;
 
+    private String avatar;
+
     @OneToMany(mappedBy = "createdBy")
     private List<Event> createdEvents;
 

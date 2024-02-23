@@ -1,8 +1,8 @@
-package com.salesianos.triana.edu.globalgathering.service;
+package com.salesianos.triana.edu.globalgathering.service.client;
 
-import com.salesianos.triana.edu.globalgathering.dto.AddUser;
+import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
-import com.salesianos.triana.edu.globalgathering.repository.ClientWorkerRepository;
+import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

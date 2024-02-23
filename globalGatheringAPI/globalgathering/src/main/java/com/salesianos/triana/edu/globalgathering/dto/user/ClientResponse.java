@@ -1,4 +1,4 @@
-package com.salesianos.triana.edu.globalgathering.dto;
+package com.salesianos.triana.edu.globalgathering.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianos.triana.edu.globalgathering.model.Client;

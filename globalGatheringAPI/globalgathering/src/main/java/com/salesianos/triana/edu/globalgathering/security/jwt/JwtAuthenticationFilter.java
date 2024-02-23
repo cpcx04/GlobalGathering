@@ -3,7 +3,7 @@ package com.salesianos.triana.edu.globalgathering.security.jwt;
 
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
-import com.salesianos.triana.edu.globalgathering.service.ClientService;
+import com.salesianos.triana.edu.globalgathering.service.client.ClientService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

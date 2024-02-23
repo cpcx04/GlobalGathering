@@ -1,4 +1,4 @@
-package com.salesianos.triana.edu.globalgathering.dto;
+package com.salesianos.triana.edu.globalgathering.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

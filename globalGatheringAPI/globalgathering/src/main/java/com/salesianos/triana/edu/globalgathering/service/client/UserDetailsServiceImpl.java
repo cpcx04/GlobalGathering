@@ -1,6 +1,6 @@
-package com.salesianos.triana.edu.globalgathering.service;
+package com.salesianos.triana.edu.globalgathering.service.client;
 
-import com.salesianos.triana.edu.globalgathering.repository.ClientRepository;
+import com.salesianos.triana.edu.globalgathering.repository.client.ClientRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
