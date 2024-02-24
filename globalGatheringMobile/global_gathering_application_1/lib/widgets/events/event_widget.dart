@@ -1,72 +1,63 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
+import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
+import 'package:global_gathering_application_1/repository/event/event_repository.dart';
+import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
+import 'package:global_gathering_application_1/widgets/events/event_card.dart';
 
-class EventWidget extends StatelessWidget {
-  final String imagePath;
-  final String eventName;
-  final String location;
+class EventWidget extends StatefulWidget {
+  const EventWidget({super.key});
 
-  const EventWidget({
-    Key? key,
-    required this.imagePath,
-    required this.eventName,
-    required this.location,
-  }) : super(key: key);
+  @override
+  State<EventWidget> createState() => _EventWidgetState();
+}
+
+class _EventWidgetState extends State<EventWidget> {
+  late EventRepository eventRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    eventRepository = EventRepositoryImpl();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 180,
-      height: 220,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(16.0)),
-              child: Image.network(
-                imagePath,
-                fit: BoxFit.cover,
-                height: 120,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 8),
-            child: Text(
-              eventName,
-              style: GoogleFonts.manrope(
-                fontSize: 12,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.location_on,
-                  size: 12,
-                  color: Colors.grey,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  location,
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return BlocProvider(
+      create: (context) =>
+          EventBloc(eventRepository)..add(DoGetEventEvent('event')),
+      child: _eventList(),
     );
   }
+}
+
+Widget _eventList() {
+  return BlocBuilder<EventBloc, EventState>(
+    builder: (context, state) {
+      if (state is GetEventFetchSucess) {
+        return Container(
+          height: 210, // Set a specific height
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.event.length,
+            itemBuilder: (context, index) {
+              final event = state.event[index];
+              return EventCard(
+                imagePath: event.url!,
+                eventName: event.name!,
+                location: event.createdBy!,
+              );
+            },
+          ),
+        );
+      } else if (state is GetEventError) {
+        return Center(
+          child: Text(state.message),
+        );
+      }
+      return const Center(child: CircularProgressIndicator());
+    },
+  );
 }

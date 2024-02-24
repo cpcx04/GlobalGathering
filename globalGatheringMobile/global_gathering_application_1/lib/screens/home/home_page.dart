@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
+import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
+import 'package:global_gathering_application_1/widgets/events/event_card.dart';
 import 'package:global_gathering_application_1/widgets/events/event_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -46,37 +49,19 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      EventWidget(
-                        imagePath:
-                            'https://upload.wikimedia.org/wikipedia/commons/b/b6/Plaza_de_España_%28Sevilla%29_-_01.jpg',
-                        location: 'Plaza de España',
-                        eventName: 'Excursion a la Plaza de España',
-                      ),
-                      EventWidget(
-                        imagePath:
-                            'https://offloadmedia.feverup.com/sevillasecreta.co/wp-content/uploads/2020/06/24070607/shutterstock_1324665797-1-1024x651.jpg',
-                        location: 'Parque de Maria Luisa',
-                        eventName: 'Paseo Parque Maria Luisa',
-                      ),
-                      EventWidget(
-                        imagePath:
-                            'https://visitasevilla.es/wp-content/uploads/2022/11/setas.jpg',
-                        location: 'Setas de Sevilla',
-                        eventName: 'Visita a Setas de Sevilla',
-                      ),
-                      EventWidget(
-                        imagePath:
-                            'https://upload.wikimedia.org/wikipedia/commons/b/b6/Plaza_de_España_%28Sevilla%29_-_01.jpg',
-                        location: 'Plaza de España',
-                        eventName: 'Excursion a la Plaza de España',
-                      ),
-                    ],
+                EventWidget(),
+                Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Text(
+                    'COMMENTS',
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.manrope(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
+                ),
+                CommentWidget()
               ],
             ),
           ),

@@ -1,21 +1,40 @@
 class EventResponse {
-  String? avatar;
-  String? username;
-  String? content;
+  String? name;
+  String? descripcion;
+  String? url;
+  double? latitud;
+  double? longitud;
+  double? price;
+  String? createdBy;
 
-  EventResponse({this.avatar, this.username, this.content});
+  EventResponse(
+      {this.name,
+      this.descripcion,
+      this.url,
+      this.latitud,
+      this.longitud,
+      this.price,
+      this.createdBy});
 
   EventResponse.fromJson(Map<String, dynamic> json) {
-    avatar = json['avatar'];
-    username = json['username'];
-    content = json['content'];
+    name = json['name'];
+    descripcion = json['descripcion'];
+    url = json['url'];
+    latitud = json['latitud'];
+    longitud = json['longitud'];
+    price = json['price'];
+    createdBy = json['createdBy'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['avatar'] = this.avatar;
-    data['username'] = this.username;
-    data['content'] = this.content;
+    data['name'] = this.name;
+    data['descripcion'] = this.descripcion;
+    data['url'] = this.url;
+    data['latitud'] = this.latitud;
+    data['longitud'] = this.longitud;
+    data['price'] = this.price;
+    data['createdBy'] = this.createdBy;
     return data;
   }
 }

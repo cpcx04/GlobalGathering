@@ -5,6 +5,12 @@ import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDto;
 import com.salesianos.triana.edu.globalgathering.service.comment.CommentService;
 import com.salesianos.triana.edu.globalgathering.service.event.EventService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +29,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @Operation(summary = "findAll", description = "Find All Single Comments in the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The comments has been found", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetSingleCommentDto.class)), examples = {
+                            @ExampleObject(value = """
+                                  
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find any comment .", content = @Content),
+    })
     @GetMapping("/singleComments")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<GetSingleCommentDto>> findAllSigleComments() {

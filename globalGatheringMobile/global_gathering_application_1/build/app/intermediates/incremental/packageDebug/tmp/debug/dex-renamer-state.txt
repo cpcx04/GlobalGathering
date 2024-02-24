@@ -1,4 +1,4 @@
-#Fri Feb 23 17:52:01 CET 2024
+#Sat Feb 24 19:19:07 CET 2024
 base.0=C\:\\Users\\pulid\\OneDrive\\Escritorio\\GlobalGathering\\globalGatheringMobile\\global_gathering_application_1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -14,8 +14,8 @@ public record GetEventDto(
     public static GetEventDto of (Event event){
         return new GetEventDto(
                 event.getName(),
-                event.getUrl(),
                 event.getDescripcion(),
+                event.getUrl(),
                 event.getLatitude(),
                 event.getLongitude(),
                 event.getPrice(),
