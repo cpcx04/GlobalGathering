@@ -33,6 +33,12 @@ public class Event {
     private double longitude;
     private LocalDateTime date;
     private double price;
+    private String ciudad;
+    private boolean abierto;
+
+    @ManyToMany(mappedBy = "apuntados")
+    private List<Client> clientes;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_related_id")
