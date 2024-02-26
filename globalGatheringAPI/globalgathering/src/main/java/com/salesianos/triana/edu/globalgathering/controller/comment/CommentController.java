@@ -33,7 +33,18 @@ public class CommentController {
             @ApiResponse(responseCode = "200", description = "The comments has been found", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetSingleCommentDto.class)), examples = {
                             @ExampleObject(value = """
-                                  
+                                    [
+                                        {
+                                            "avatar": "https://static.vecteezy.com/system/resources/thumbnails/011/381/900/small/young-businessman-3d-cartoon-avatar-portrait-png.png",
+                                            "username": "cristianpc",
+                                            "content": "Los mejores 20 euros en invertidos en mi vida fueron la excursion al parque de bolas"
+                                        },
+                                        {
+                                            "avatar": "https://static.vecteezy.com/system/resources/thumbnails/011/381/900/small/young-businessman-3d-cartoon-avatar-portrait-png.png",
+                                            "username": "cristianpc",
+                                            "content": "El viaje a croacia nos ayudo a desconectar #CroaciaMola#Trips"
+                                        }
+                                    ]
                                                          """) }) }),
             @ApiResponse(responseCode = "404", description = "Unable to find any comment .", content = @Content),
     })

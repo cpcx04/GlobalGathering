@@ -44,8 +44,13 @@ public abstract class Client implements UserDetails {
 
     private String avatar;
 
-    @OneToMany(mappedBy = "createdBy")
-    private List<Event> createdEvents;
+    @ManyToMany
+    @JoinTable(
+            name = "apuntados_al_evento",
+            joinColumns = @JoinColumn(name = "cliente_id"),
+            inverseJoinColumns = @JoinColumn(name = "evento_id")
+    )
+    private List<Event> apuntados;
 
     @ManyToMany
     @JoinTable(
