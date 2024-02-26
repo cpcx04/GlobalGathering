@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
+import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
+import 'package:global_gathering_application_1/widgets/events/event_card.dart';
+import 'package:global_gathering_application_1/widgets/events/event_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +15,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -33,6 +37,31 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 8.0, top: 12, bottom: 12),
+                  child: Text(
+                    "Explore Cities",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.manrope(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                EventWidget(),
+                Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Text(
+                    'COMMENTS',
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.manrope(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                CommentWidget()
               ],
             ),
           ),
@@ -45,7 +74,7 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
                 30.0), // Ajusta el radio según tus preferencias
-            color: Color.fromARGB(255, 20, 12,
+            color: const Color.fromARGB(255, 20, 12,
                 71), // Puedes ajustar el color de fondo según tus preferencias
           ),
           child: Row(
