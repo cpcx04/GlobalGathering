@@ -1,72 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
-import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
-import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
-import 'package:global_gathering_application_1/widgets/events/event_card.dart';
-import 'package:global_gathering_application_1/widgets/events/event_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:global_gathering_application_1/screens/home/home_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class TravelPage extends StatelessWidget {
+  const TravelPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'What do',
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.inter(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                Text(
-                  "you want to do?",
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.manrope(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, top: 12, bottom: 12),
-                  child: Text(
-                    "Explore Cities",
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.manrope(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                EventWidget(),
-                Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Text(
-                    'COMMENTS',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.manrope(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                CommentWidget()
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: ListView(),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         elevation: 0.0,
