@@ -83,12 +83,7 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.home),
                   color: Colors.white,
                 ),
@@ -99,7 +94,11 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TravelPage()),
+                      MaterialPageRoute(
+                          builder: (context) => TravelPage(
+                                latitud: 37.39216297919158,
+                                longitud: -6.002893650469156,
+                              )),
                     );
                   },
                   icon: const Icon(Icons.travel_explore),
