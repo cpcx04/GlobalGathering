@@ -2,6 +2,8 @@ package com.salesianos.triana.edu.globalgathering.dto.event;
 
 import com.salesianos.triana.edu.globalgathering.model.Event;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record GetEventDto(
@@ -14,7 +16,9 @@ public record GetEventDto(
        double longitud,
        double price,
        String createdBy,
-       String ciudad
+       String ciudad,
+
+       LocalDate date
 ){
     public static GetEventDto of (Event event){
         return new GetEventDto(
@@ -26,7 +30,8 @@ public record GetEventDto(
                 event.getLongitude(),
                 event.getPrice(),
                 event.getCreatedBy().getUsername(),
-                event.getCiudad()
+                event.getCiudad(),
+                event.getDate()
         );
     }
 

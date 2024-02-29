@@ -5,6 +5,8 @@ import 'package:global_gathering_application_1/model/reponse/event_response.dart
 import 'package:global_gathering_application_1/repository/event/event_repository.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
 import 'package:global_gathering_application_1/screens/home/home_page.dart';
+import 'package:global_gathering_application_1/screens/travel/info_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'dart:async';
@@ -20,6 +22,7 @@ class TravelPage extends StatefulWidget {
 }
 
 class _TravelPageState extends State<TravelPage> {
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   late EventRepository eventRepository;
   List<EventResponse> events = [];
 
@@ -34,20 +37,69 @@ class _TravelPageState extends State<TravelPage> {
     );
   }
 
+  void addCustomIcon() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(), "assets/icons/marker.png")
+        .then((icon) {
+      setState(() {
+        markerIcon = icon;
+      });
+    });
+  }
+
   Set<Marker> _createMarkers(List<EventResponse> events) {
     return Set<Marker>.from(events.map((event) {
       LatLng position = LatLng(event.latitud!, event.longitud!);
       return Marker(
         markerId: MarkerId(position.toString()),
         position: position,
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindow: InfoWindow(title: event.name, snippet: '${event.price} €'),
+        icon: markerIcon,
+        infoWindow: InfoWindow(
+          title: event.name,
+          snippet: '${event.price} €',
+          onTap: () {
+            _showInfoDialog(event);
+          },
+        ),
       );
     }));
   }
 
+  void _showInfoDialog(EventResponse event) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomInfoWindowContent(
+                  eventName: event.name!,
+                  eventPrice: '${event.price} ',
+                  imageUrl: event.url!,
+                  descripcion: event.descripcion!,
+                  date: event.date!,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
+    addCustomIcon();
     super.initState();
     eventRepository = EventRepositoryImpl();
   }
@@ -62,6 +114,7 @@ class _TravelPageState extends State<TravelPage> {
           if (state is GetEventFetchSucess) {
             events = state.event;
             return Scaffold(
+              extendBody: true,
               body: Stack(
                 children: [
                   GoogleMap(
@@ -72,6 +125,14 @@ class _TravelPageState extends State<TravelPage> {
                       _controller.complete(controller);
                     },
                     markers: _createMarkers(events),
+                    zoomControlsEnabled: true,
+                    zoomGesturesEnabled: true,
+                    scrollGesturesEnabled: true,
+                    compassEnabled: true,
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.076,
+                        left: MediaQuery.of(context).size.width * 0.076,
+                        right: MediaQuery.of(context).size.width * 0.076),
                   ),
                 ],
               ),

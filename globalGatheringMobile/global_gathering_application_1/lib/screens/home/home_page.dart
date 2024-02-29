@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: ListView(
         children: [
           Padding(
@@ -68,6 +69,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
         shape: const CircularNotchedRectangle(),
         elevation: 0.0,
         child: Container(

@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.mapping.Set;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class Event {
 
     private double latitude;
     private double longitude;
-    private LocalDateTime date;
+    private LocalDate date;
     private double price;
     private String ciudad;
     private boolean abierto;
