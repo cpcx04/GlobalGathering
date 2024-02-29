@@ -1,6 +1,8 @@
 package com.salesianos.triana.edu.globalgathering.error;
 
+import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.error.impl.ApiValidationSubError;
+import com.salesianos.triana.edu.globalgathering.exception.client.AlreadyAssignedException;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
 import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,7 +37,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 .toList();
         ErrorResponse er = ErrorResponse.builder(exception, HttpStatus.BAD_REQUEST, exception.getMessage())
                 .title("Invalid data error")
-                .type(URI.create("https://api.bikeapp.com/errors/not-valid"))
+                .type(URI.create("https://api.globalghatering.com/errors/not-valid"))
                 .property("Fields errors", validationErrors)
                 .build();
         return ResponseEntity.status(status)
@@ -48,15 +50,25 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     public ErrorResponse handleNotFoundException(EntityNotFoundException exception) {
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
                 .title("Entity not found")
-                .type(URI.create("https://api.sataapp.com/errors/not-found"))
+                .type(URI.create("https://api.globalghatering.com/errors/not-found"))
                 .property("timestamp", Instant.now())
                 .build();
     }
+
+    @ExceptionHandler({ AlreadyAssignedException.class })
+    public ErrorResponse handleAlreadyInException(AlreadyAssignedException exception) {
+        return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
+                .title("You are already in this event")
+                .type(URI.create("https://api.globalghatering.com/errors/not-found"))
+                .property("timestamp", Instant.now())
+                .build();
+    }
+
     @ExceptionHandler({ AuthenticationException.class })
     public ErrorResponse handleAuthenticationException(AuthenticationException exception) {
         return ErrorResponse.builder(exception, HttpStatus.UNAUTHORIZED, exception.getMessage())
                 .title("AUTHENTICATION")
-                .type(URI.create("https://api.sataapp.com/errors/unauthorized-user"))
+                .type(URI.create("https://api.globalghatering.com/errors/unauthorized-user"))
                 .property("timestamp", Instant.now())
                 .build();
 
@@ -66,7 +78,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     public ErrorResponse handleAccessDeniedException(AccessDeniedException exception) {
         return ErrorResponse.builder(exception, HttpStatus.FORBIDDEN, exception.getMessage())
                 .title("ACCESS DENIED")
-                .type(URI.create("https://api.sataapp.com/errors/access-denied"))
+                .type(URI.create("https://api.globalghatering.com/errors/access-denied"))
                 .property("timestamp", Instant.now())
                 .build();
 
@@ -77,7 +89,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     public ErrorResponse handleTokenException(JwtTokenException exception) {
         return ErrorResponse.builder(exception, HttpStatus.FORBIDDEN, exception.getMessage())
                 .title("TOKEN INVALID")
-                .type(URI.create("https://api.sataapp.com/errors/invalid-token"))
+                .type(URI.create("https://api.globalghatering.com/errors/invalid-token"))
                 .property("timestamp", Instant.now())
                 .build();
     }

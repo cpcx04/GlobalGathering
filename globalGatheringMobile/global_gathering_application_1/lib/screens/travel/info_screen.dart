@@ -8,6 +8,7 @@ class CustomInfoWindowContent extends StatelessWidget {
   final String imageUrl;
   final String descripcion;
   final String date;
+  final String id;
 
   const CustomInfoWindowContent({
     required this.eventName,
@@ -15,6 +16,7 @@ class CustomInfoWindowContent extends StatelessWidget {
     required this.imageUrl,
     required this.descripcion,
     required this.date,
+    required this.id,
   });
 
   @override
@@ -86,8 +88,16 @@ class CustomInfoWindowContent extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BookWidget()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BookPage(
+                              imageUrl: imageUrl,
+                              date: date,
+                              price: eventPrice,
+                              eventName: eventName,
+                              uuid: id,
+                            )));
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.blue, // Cambia el color de fondo del botón

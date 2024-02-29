@@ -35,7 +35,7 @@ public class Event {
     private String ciudad;
     private boolean abierto;
 
-    @ManyToMany(mappedBy = "apuntados")
+    @ManyToMany(mappedBy = "eventos", fetch = FetchType.EAGER)
     private List<Client> clientes;
 
 

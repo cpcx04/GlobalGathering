@@ -18,3 +18,8 @@ final class GetEventError extends EventState {
   final String message;
   GetEventError(this.message);
 }
+
+final class AssigEventFetchSucess extends EventState {
+  final EventDetailResponse response;
+  AssigEventFetchSucess(this.response);
+}

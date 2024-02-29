@@ -88,6 +88,7 @@ class _TravelPageState extends State<TravelPage> {
                   imageUrl: event.url!,
                   descripcion: event.descripcion!,
                   date: event.date!,
+                  id: event.id!,
                 ),
               ],
             ),
