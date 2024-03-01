@@ -177,8 +177,8 @@ public class EventController {
 
     @GetMapping("/get/assigned")
     @PreAuthorize("isAuthenticated()")
-    public GetEventDetailDto getMyEvents(@PathVariable UUID uuid){
-        Event event = eventService.assignAclient(uuid);
-        return GetEventDetailDto.toDto(event);
+    public List<GetEventDto> getMyEvents(){
+        List<GetEventDto> event = eventService.findMyEvent();
+        return event;
     }
 }

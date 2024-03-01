@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_gathering_application_1/screens/book/booked_page.dart';
 import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
@@ -119,8 +120,13 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookedPage()),
+                    );
+                  },
+                  icon: const Icon(Icons.person),
                   color: Colors.white,
                 ),
               ),

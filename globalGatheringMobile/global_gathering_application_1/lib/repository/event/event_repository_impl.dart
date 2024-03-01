@@ -65,4 +65,32 @@ class EventRepositoryImpl implements EventRepository {
       throw Exception('Failed to assign participant');
     }
   }
+
+//Obtener mis eventos
+  @override
+  Future<List<EventResponse>> getMyEvents() async {
+    String? token = await getTokenFromSharedPreferences();
+
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    final response = await http.get(
+      Uri.parse('http://10.0.2.2:8080/event/get/assigned'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    List<EventResponse> eventList = [];
+
+    if (response.statusCode == 200) {
+      List<dynamic> responseData = jsonDecode(response.body);
+      eventList = responseData
+          .map((eventJson) => EventResponse.fromJson(eventJson))
+          .toList();
+    }
+    return eventList;
+  }
 }

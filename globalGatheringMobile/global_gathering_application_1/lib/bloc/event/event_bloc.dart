@@ -12,6 +12,7 @@ class EventBloc extends Bloc<GetEventEvent, EventState> {
   EventBloc(this._eventRepository) : super(EventInitial()) {
     on<DoGetEventEvent>(_onEventFetchList);
     on<DoAssignedEvent>(_onAssignedEvent);
+    on<DoGetMyEvent>(_onMyEvents);
   }
 
   void _onEventFetchList(GetEventEvent event, Emitter<EventState> emit) async {
@@ -31,6 +32,15 @@ class EventBloc extends Bloc<GetEventEvent, EventState> {
       } else {
         emit(GetEventError("Invalid event type"));
       }
+    } catch (e) {
+      emit(GetEventError(e.toString()));
+    }
+  }
+
+  void _onMyEvents(GetEventEvent event, Emitter<EventState> emit) async {
+    try {
+      final eventList = await _eventRepository.getMyEvents();
+      emit(GetEventFetchSucess(eventList));
     } catch (e) {
       emit(GetEventError(e.toString()));
     }

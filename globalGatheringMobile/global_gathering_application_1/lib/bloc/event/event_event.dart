@@ -12,3 +12,8 @@ class DoAssignedEvent extends GetEventEvent {
   final String uuid;
   DoAssignedEvent(this.uuid);
 }
+
+class DoGetMyEvent extends GetEventEvent {
+  final String events;
+  DoGetMyEvent(this.events);
+}

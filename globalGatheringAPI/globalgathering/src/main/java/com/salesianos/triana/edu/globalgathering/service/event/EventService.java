@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -71,4 +72,17 @@ public class EventService {
     }
 
 
+    public List<GetEventDto> findMyEvent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        Optional<Client> optionalClient = clientRepository.findByUsername(currentUsername);
+        if (optionalClient.isPresent()) {
+
+            Client client = optionalClient.get();
+            List<Event> myEvents = client.getEventos();
+            return myEvents.stream().map(GetEventDto::of).collect(Collectors.toList());
+        } else {
+            throw new EntityNotFoundException("Client not found for username: " + currentUsername);
+        }
+    }
 }

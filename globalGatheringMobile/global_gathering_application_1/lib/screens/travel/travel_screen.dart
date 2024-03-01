@@ -184,7 +184,7 @@ class _TravelPageState extends State<TravelPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.settings),
+                          icon: const Icon(Icons.person),
                           color: Colors.white,
                         ),
                       ),
