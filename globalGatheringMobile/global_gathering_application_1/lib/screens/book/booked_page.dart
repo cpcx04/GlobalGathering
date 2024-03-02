@@ -8,6 +8,7 @@ import 'package:global_gathering_application_1/screens/home/home_page.dart';
 import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
 import 'package:global_gathering_application_1/widgets/events/event_card.dart';
 import 'package:global_gathering_application_1/widgets/events/events_my_event_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookedPage extends StatefulWidget {
   const BookedPage({super.key});
@@ -34,7 +35,20 @@ class _BookedPageState extends State<BookedPage> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [_getMyEvent()],
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'My Events',
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.manrope(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              _getMyEvent()
+            ],
           ),
         ),
         bottomNavigationBar: BottomAppBar(
@@ -122,7 +136,6 @@ Widget _getMyEvent() {
       return Container(
         height: 600, // Set a specific height
         child: ListView.builder(
-          scrollDirection: Axis.vertical,
           itemCount: state.event.length,
           itemBuilder: (context, index) {
             final event = state.event[index];
@@ -132,6 +145,7 @@ Widget _getMyEvent() {
               location: event.createdBy!,
               latitud: event.latitud!,
               longitud: event.longitud!,
+              date: event.date!,
             );
           },
         ),

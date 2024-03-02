@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Text(
-                    'COMMENTS',
+                    'News',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.manrope(
                       fontSize: 20,

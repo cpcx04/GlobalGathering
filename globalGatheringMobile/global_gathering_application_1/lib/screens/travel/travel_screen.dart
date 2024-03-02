@@ -4,6 +4,7 @@ import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
 import 'package:global_gathering_application_1/model/reponse/event_response.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
+import 'package:global_gathering_application_1/screens/book/booked_page.dart';
 import 'package:global_gathering_application_1/screens/home/home_page.dart';
 import 'package:global_gathering_application_1/screens/travel/info_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -183,7 +184,13 @@ class _TravelPageState extends State<TravelPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BookedPage()),
+                            );
+                          },
                           icon: const Icon(Icons.person),
                           color: Colors.white,
                         ),
