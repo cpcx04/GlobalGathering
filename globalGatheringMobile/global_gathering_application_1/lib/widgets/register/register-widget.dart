@@ -63,8 +63,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          HomePage(name: state.userRegister.nombre!),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 });

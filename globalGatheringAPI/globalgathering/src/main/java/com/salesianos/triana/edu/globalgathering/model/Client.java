@@ -44,13 +44,14 @@ public abstract class Client implements UserDetails {
 
     private String avatar;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
-            name = "apuntados_al_evento",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "evento_id")
+            name = "cliente_apuntado",
+            joinColumns = @JoinColumn(name = "evento_id"),
+            inverseJoinColumns = @JoinColumn(name = "cliente_id")
     )
-    private List<Event> apuntados;
+    private List<Event> eventos;
+
 
     @ManyToMany
     @JoinTable(

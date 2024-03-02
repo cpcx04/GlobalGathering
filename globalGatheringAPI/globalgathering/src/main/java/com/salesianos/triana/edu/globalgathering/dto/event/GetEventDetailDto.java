@@ -3,13 +3,15 @@ package com.salesianos.triana.edu.globalgathering.dto.event;
 import com.salesianos.triana.edu.globalgathering.dto.user.ClienteDto;
 import com.salesianos.triana.edu.globalgathering.model.Event;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public record GetEventDetailDto(
         String nombre,
-        String fecha,
+        LocalDate fecha,
         String url,
         String ciudad,
         String precio,
@@ -19,7 +21,7 @@ public record GetEventDetailDto(
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return new GetEventDetailDto(
                 event.getName(),
-                event.getDate().format(formatter),
+                event.getDate(),
                 event.getUrl(),
                 event.getCiudad(),
                 String.valueOf(event.getPrice()),

@@ -9,6 +9,7 @@ class EventResponse {
   String? createdBy;
   String? ciudad;
   bool? abierto;
+  String? date;
 
   EventResponse(
       {this.id,
@@ -20,7 +21,8 @@ class EventResponse {
       this.price,
       this.createdBy,
       this.ciudad,
-      this.abierto});
+      this.abierto,
+      this.date});
 
   EventResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,20 +35,22 @@ class EventResponse {
     createdBy = json['createdBy'];
     ciudad = json['ciudad'];
     abierto = json['abierto'];
+    date = json['date'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['descripcion'] = this.descripcion;
-    data['url'] = this.url;
-    data['latitud'] = this.latitud;
-    data['longitud'] = this.longitud;
-    data['price'] = this.price;
-    data['createdBy'] = this.createdBy;
-    data['ciudad'] = this.ciudad;
-    data['abierto'] = this.abierto;
+    data['id'] = id;
+    data['name'] = name;
+    data['descripcion'] = descripcion;
+    data['url'] = url;
+    data['latitud'] = latitud;
+    data['longitud'] = longitud;
+    data['price'] = price;
+    data['createdBy'] = createdBy;
+    data['ciudad'] = ciudad;
+    data['abierto'] = abierto;
+    data['date'] = date;
     return data;
   }
 }

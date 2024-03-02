@@ -1,9 +1,11 @@
 package com.salesianos.triana.edu.globalgathering.controller.client;
 
+import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.user.Login;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
+import com.salesianos.triana.edu.globalgathering.model.Event;
 import com.salesianos.triana.edu.globalgathering.security.jwt.*;
 import com.salesianos.triana.edu.globalgathering.security.jwt.JwtUserResponse;
 import com.salesianos.triana.edu.globalgathering.service.client.ClientWorkerService;
@@ -19,13 +21,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -95,4 +98,8 @@ public class ClientController {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(JwtUserResponse.of(user, token));
     }
+
+
+
+
 }
