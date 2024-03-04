@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:global_gathering_application_1/screens/book/booked_page.dart';
 import 'package:global_gathering_application_1/screens/create/create_screen.dart';
-import 'package:global_gathering_application_1/screens/post/post_screen.dart';
+import 'package:global_gathering_application_1/screens/home/home_page.dart';
 import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
-import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
-import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
-import 'package:global_gathering_application_1/widgets/events/event_card.dart';
-import 'package:global_gathering_application_1/widgets/events/event_widget.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class PostScreen extends StatelessWidget {
+  const PostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +23,13 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'What do',
+                  'We are working on this page...',
                   textAlign: TextAlign.start,
                   style: GoogleFonts.inter(
                     fontSize: 32,
                     fontWeight: FontWeight.w300,
                   ),
-                ),
-                Text(
-                  "you want to do?",
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.manrope(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, top: 12, bottom: 12),
-                  child: Text(
-                    "Explore Cities",
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.manrope(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                EventWidget(),
-                Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Text(
-                    'News',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.manrope(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                CommentWidget()
+                )
               ],
             ),
           ),
@@ -88,7 +52,12 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
                   icon: const Icon(Icons.home),
                   color: Colors.white,
                 ),
@@ -114,12 +83,7 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PostScreen()),
-                    );
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.video_collection_rounded),
                   color: Colors.white,
                 ),
