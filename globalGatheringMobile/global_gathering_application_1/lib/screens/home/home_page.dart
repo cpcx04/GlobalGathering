@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_gathering_application_1/screens/book/booked_page.dart';
+import 'package:global_gathering_application_1/screens/create/create_screen.dart';
 import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
@@ -139,7 +140,10 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 20, 12, 71),
         onPressed: () {
-          // Add your functionality for the FloatingActionButton
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateScreen()),
+          );
         },
         child: const Icon(Icons.add, color: Colors.white, size: 25),
       ),
