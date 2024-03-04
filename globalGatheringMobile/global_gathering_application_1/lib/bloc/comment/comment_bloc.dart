@@ -29,9 +29,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     emit(CommentFetchLoading());
     try {
       final CommentDto commentDto = CommentDto(
-          username: comment.username,
-          content: comment.content,
-          relatedPost: comment.relatedPost);
+          content: comment.content, relatedPost: comment.relatedPost);
       final CommentResponse commentResponse =
           await _commentRepository.createAcomment(commentDto);
       emit(CreateCommentSucess(commentResponse));

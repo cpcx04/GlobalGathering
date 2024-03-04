@@ -17,3 +17,15 @@ class DoGetMyEvent extends GetEventEvent {
   final String events;
   DoGetMyEvent(this.events);
 }
+
+class DoCreateEvent extends GetEventEvent {
+  final String name;
+  final String descripcion;
+  final String url;
+  final double latitude;
+  final double longitude;
+  final double price;
+  final String ciudad;
+  DoCreateEvent(this.name, this.descripcion, this.url, this.latitude,
+      this.longitude, this.price, this.ciudad);
+}

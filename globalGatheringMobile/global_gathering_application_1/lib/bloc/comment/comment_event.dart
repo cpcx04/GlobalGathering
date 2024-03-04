@@ -9,8 +9,10 @@ class DoCommentEvent extends CommentEvent {
 }
 
 class DoCreateCommentEvent extends CommentEvent {
-  final String? username;
   final String content;
   final String? relatedPost;
-  DoCreateCommentEvent(this.username, this.content, this.relatedPost);
+
+  DoCreateCommentEvent.withRelatedPost(this.content, this.relatedPost);
+
+  DoCreateCommentEvent.withoutRelatedPost(this.content) : relatedPost = null;
 }

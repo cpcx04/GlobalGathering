@@ -20,7 +20,6 @@ class CommentCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Circular white background with the profile image
           Container(
             width: 40,
             height: 40,

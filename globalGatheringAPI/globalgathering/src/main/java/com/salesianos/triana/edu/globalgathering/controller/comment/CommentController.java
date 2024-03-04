@@ -67,6 +67,11 @@ public class CommentController {
             @ApiResponse(responseCode = "201", description = "Creation of a new comment", content = {
                     @Content(mediaType = "application/json", examples = { @ExampleObject(value =
                             """
+                                    {
+                                        "avatar": "https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png",
+                                        "username": "cristianpc",
+                                        "content": "Me parece increible la calva de pedro"
+                                    }
                                     """) }) }),
             @ApiResponse(responseCode = "400", description = "The creation of the comment has not been done", content = @Content)
 
@@ -75,7 +80,7 @@ public class CommentController {
     )
     @PostMapping("/new")
     @PreAuthorize("isAuthenticated()")
-    @Operation(summary = "addInventoryItem", description = "Create a new InventoryItem")
+    @Operation(summary = "addInventoryItem", description = "Create a new Comment")
     public ResponseEntity<GetSingleCommentDto> addComment(@Valid @RequestBody AddACommentDto commentDto, @AuthenticationPrincipal Client client) {
         Comments c = commentService.newComment(commentDto,client);
         return ResponseEntity

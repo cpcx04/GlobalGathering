@@ -42,7 +42,7 @@ public abstract class Client implements UserDetails {
 
     private String email;
 
-    private String avatar;
+    private String avatar="https://static.vecteezy.com/system/resources/thumbnails/011/381/900/small/young-businessman-3d-cartoon-avatar-portrait-png.png";
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(

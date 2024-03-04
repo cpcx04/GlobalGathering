@@ -41,10 +41,17 @@ class CommentRepositoryImpl implements CommentRepository {
 
   @override
   Future<CommentResponse> createAcomment(CommentDto commentDto) async {
+    String? token = await getTokenFromSharedPreferences();
+
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8080/comments/new'),
       headers: <String, String>{
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
       },
       body: jsonEncode(commentDto.toJson()),
     );

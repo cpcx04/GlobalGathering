@@ -1,8 +1,10 @@
 package com.salesianos.triana.edu.globalgathering.controller.event;
-
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
+import com.salesianos.triana.edu.globalgathering.dto.event.AddAEvent;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDto;
+import com.salesianos.triana.edu.globalgathering.model.Client;
+import com.salesianos.triana.edu.globalgathering.model.Comments;
 import com.salesianos.triana.edu.globalgathering.model.Event;
 import com.salesianos.triana.edu.globalgathering.service.event.EventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,10 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -146,7 +150,7 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "findByLocation", description = "Find a Event in the database")
+    @Operation(summary = "Subscribe a Client", description = "Subscribe a Client in the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The client susbcribe to the event", content = {
                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetEventDetailDto.class)), examples = {
@@ -165,7 +169,7 @@ public class EventController {
                                         ]
                                     }
                                                          """) }) }),
-            @ApiResponse(responseCode = "404", description = "Unable to find any event.", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Unable to subscribe to any event.", content = @Content),
     })
     @PutMapping("/apuntar/me/{uuid}")
     @PreAuthorize("isAuthenticated()")
@@ -180,5 +184,37 @@ public class EventController {
     public List<GetEventDto> getMyEvents(){
         List<GetEventDto> event = eventService.findMyEvent();
         return event;
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Creation of a new event", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value =
+                            """
+                                    {
+                                        "id": "b582965b-0a66-47a1-b0d4-ca1b8c77ce96",
+                                        "name": "Paracaidismo Torre Pelli",
+                                        "descripcion": "Paracaidismo desde 1500m sobre la torre pelli",
+                                        "url": "https://cuponassets.cuponatic-latam.com/backendPe/uploads/imagenes_descuentos/108281/288674eee06d220ca81edcac360b7357d0cd224e.XL2.jpg",
+                                        "latitud": 37.3955175804586,
+                                        "longitud": -6.011312152239021,
+                                        "price": 120.0,
+                                        "createdBy": "cristianpc",
+                                        "ciudad": "Sevilla",
+                                        "date": "2024-03-04"
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "The creation of the event has not been done", content = @Content)
+
+    }
+
+    )
+    @PostMapping("/new")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "addAevent", description = "Create a new Event")
+    public ResponseEntity<GetEventDto> addComment(@Valid @RequestBody AddAEvent addAEvent, @AuthenticationPrincipal Client client) {
+        Event e = eventService.newEvent(addAEvent,client);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(GetEventDto.of(e));
     }
 }
