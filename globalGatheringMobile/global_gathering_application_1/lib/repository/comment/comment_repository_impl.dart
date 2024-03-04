@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:global_gathering_application_1/model/dto/comment_dto.dart';
 import 'package:global_gathering_application_1/model/reponse/comment_response.dart';
 import 'package:global_gathering_application_1/repository/comment/comment_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,5 +37,22 @@ class CommentRepositoryImpl implements CommentRepository {
   Future<String?> getTokenFromSharedPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString("token");
+  }
+
+  @override
+  Future<CommentResponse> createAcomment(CommentDto commentDto) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8080/comments/new'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(commentDto.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return CommentResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to create the comment');
+    }
   }
 }
