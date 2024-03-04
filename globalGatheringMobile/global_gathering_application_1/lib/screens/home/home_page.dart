@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:global_gathering_application_1/screens/book/booked_page.dart';
+import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_card.dart';
 import 'package:global_gathering_application_1/widgets/comments/comment_widget.dart';
 import 'package:global_gathering_application_1/widgets/events/event_card.dart';
@@ -6,12 +8,12 @@ import 'package:global_gathering_application_1/widgets/events/event_widget.dart'
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
-  final String name;
-  const HomePage({Key? key, required this.name}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: ListView(
         children: [
           Padding(
@@ -53,7 +55,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Text(
-                    'COMMENTS',
+                    'News',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.manrope(
                       fontSize: 20,
@@ -68,6 +70,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
         shape: const CircularNotchedRectangle(),
         elevation: 0.0,
         child: Container(
@@ -91,7 +94,16 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TravelPage(
+                                latitud: 37.39216297919158,
+                                longitud: -6.002893650469156,
+                              )),
+                    );
+                  },
                   icon: const Icon(Icons.travel_explore),
                   color: Colors.white,
                 ),
@@ -108,8 +120,13 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookedPage()),
+                    );
+                  },
+                  icon: const Icon(Icons.person),
                   color: Colors.white,
                 ),
               ),

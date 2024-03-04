@@ -48,6 +48,8 @@ Widget _eventList() {
                 imagePath: event.url!,
                 eventName: event.name!,
                 location: event.createdBy!,
+                latitud: event.latitud!,
+                longitud: event.longitud!,
               );
             },
           ),

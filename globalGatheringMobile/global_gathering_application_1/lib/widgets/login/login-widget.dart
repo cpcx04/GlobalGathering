@@ -59,8 +59,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            HomePage(name: state.userLogin.nombre!),
+                        builder: (context) => HomePage(),
                       ),
                     );
                   });
