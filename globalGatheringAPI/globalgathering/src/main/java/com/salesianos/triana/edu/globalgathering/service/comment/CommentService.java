@@ -61,15 +61,19 @@ public class CommentService {
         if (commentOptional.isPresent()) {
             Comments comment = commentOptional.get();
 
-            if (comment.getPostedBy().equals(currentUser.getId())) {
+            String postedByIdAsString = comment.getPostedBy().getId().toString();
+            String currentUserIdAsString = currentUser.getId().toString();
+
+            if (postedByIdAsString.equals(currentUserIdAsString)) {
                 commentRepository.deleteById(id);
                 return "Eliminado con éxito";
             } else {
                 throw new NotOwnerOfCommentException();
             }
         } else {
-            throw new EntityNotFoundException("Comment with id : "+id+" not found");
+            throw new EntityNotFoundException("Comment with id: " + id + " not found");
         }
     }
+
 
 }
