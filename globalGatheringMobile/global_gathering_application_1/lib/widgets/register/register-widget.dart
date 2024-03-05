@@ -82,6 +82,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   }
 
   _buildRegisterForm() {
+    userTextController.text = "manolo72";
+    passTextController.text = "manolo72";
+    emailTextController.text = "manolo72@gmail.com";
+    nameTextController.text = "Manolo Coder";
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(

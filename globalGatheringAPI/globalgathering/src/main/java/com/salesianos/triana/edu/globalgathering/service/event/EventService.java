@@ -1,5 +1,6 @@
 package com.salesianos.triana.edu.globalgathering.service.event;
 
+import com.salesianos.triana.edu.globalgathering.dto.event.AddAEvent;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDto;
 import com.salesianos.triana.edu.globalgathering.exception.client.AlreadyAssignedException;
@@ -14,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,10 +30,10 @@ public class EventService {
     private final ClientRepository clientRepository;
 
     public List<GetEventDto> findAll(){
-        return eventRepository.findAll()
-                .stream()
-                .map(GetEventDto::of)
-                .toList();
+        List<Event> eventList = eventRepository.findAll();
+        Collections.reverse(eventList);
+
+        return eventList.stream().map(GetEventDto::of).toList();
     }
 
     public GetEventDetailDto findAevent(UUID uuid) {
@@ -84,5 +87,21 @@ public class EventService {
         } else {
             throw new EntityNotFoundException("Client not found for username: " + currentUsername);
         }
+    }
+
+    public Event newEvent(AddAEvent nuevo,Client client){
+        Event e = new Event();
+        e.setName(nuevo.name());
+        e.setDescripcion(nuevo.descripcion());
+        e.setUrl(nuevo.url());
+        e.setLatitude(nuevo.latitude());
+        e.setLongitude(nuevo.longitude());
+        e.setPrice(nuevo.price());
+        e.setDate(LocalDate.now());
+        e.setCreatedBy(client);
+        e.setCiudad(nuevo.ciudad());
+        e.setAbierto(true);
+
+        return eventRepository.save(e);
     }
 }

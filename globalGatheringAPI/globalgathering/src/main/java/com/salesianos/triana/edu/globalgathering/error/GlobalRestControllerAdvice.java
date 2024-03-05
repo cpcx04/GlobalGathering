@@ -3,6 +3,7 @@ package com.salesianos.triana.edu.globalgathering.error;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.error.impl.ApiValidationSubError;
 import com.salesianos.triana.edu.globalgathering.exception.client.AlreadyAssignedException;
+import com.salesianos.triana.edu.globalgathering.exception.comment.NotOwnerOfCommentException;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
 import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
@@ -50,6 +51,14 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     public ErrorResponse handleNotFoundException(EntityNotFoundException exception) {
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
                 .title("Entity not found")
+                .type(URI.create("https://api.globalghatering.com/errors/not-found"))
+                .property("timestamp", Instant.now())
+                .build();
+    }
+    @ExceptionHandler({ NotOwnerOfCommentException.class })
+    public ErrorResponse handleNotOwnerofCommentException(NotOwnerOfCommentException exception) {
+        return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
+                .title("You are not the owner of this comment")
                 .type(URI.create("https://api.globalghatering.com/errors/not-found"))
                 .property("timestamp", Instant.now())
                 .build();

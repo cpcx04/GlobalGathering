@@ -5,7 +5,9 @@ import 'package:global_gathering_application_1/model/reponse/event_response.dart
 import 'package:global_gathering_application_1/repository/event/event_repository.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
 import 'package:global_gathering_application_1/screens/book/booked_page.dart';
+import 'package:global_gathering_application_1/screens/create/create_screen.dart';
 import 'package:global_gathering_application_1/screens/home/home_page.dart';
+import 'package:global_gathering_application_1/screens/post/post_screen.dart';
 import 'package:global_gathering_application_1/screens/travel/info_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -176,7 +178,13 @@ class _TravelPageState extends State<TravelPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PostScreen()),
+                            );
+                          },
                           icon: const Icon(Icons.video_collection_rounded),
                           color: Colors.white,
                         ),
@@ -206,7 +214,12 @@ class _TravelPageState extends State<TravelPage> {
               floatingActionButton: FloatingActionButton(
                 clipBehavior: Clip.antiAlias,
                 backgroundColor: const Color.fromARGB(255, 20, 12, 71),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreateScreen()),
+                  );
+                },
                 child: const Icon(Icons.add, color: Colors.white, size: 25),
               ),
             );

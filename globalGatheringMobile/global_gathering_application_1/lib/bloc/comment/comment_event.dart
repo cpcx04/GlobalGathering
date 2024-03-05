@@ -7,3 +7,12 @@ class DoCommentEvent extends CommentEvent {
   final String comments;
   DoCommentEvent(this.comments);
 }
+
+class DoCreateCommentEvent extends CommentEvent {
+  final String content;
+  final String? relatedPost;
+
+  DoCreateCommentEvent.withRelatedPost(this.content, this.relatedPost);
+
+  DoCreateCommentEvent.withoutRelatedPost(this.content) : relatedPost = null;
+}
