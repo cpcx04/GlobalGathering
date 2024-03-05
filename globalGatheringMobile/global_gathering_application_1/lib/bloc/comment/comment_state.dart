@@ -24,3 +24,7 @@ final class CreateCommentSucess extends CommentState {
   final CommentResponse commentResponse;
   CreateCommentSucess(this.commentResponse);
 }
+
+final class CommentDeleteSuccess extends CommentState {
+  CommentDeleteSuccess();
+}

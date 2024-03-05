@@ -28,6 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(DoLoginSuccess(registerReponse));
       prefs.setString("token", registerReponse.token!);
       prefs.setString("uuid", registerReponse.id!);
+      prefs.setString("username", registerReponse.username!);
     } catch (e) {
       emit(DoLoginError(e.toString()));
     }

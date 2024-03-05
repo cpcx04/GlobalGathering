@@ -16,3 +16,9 @@ class DoCreateCommentEvent extends CommentEvent {
 
   DoCreateCommentEvent.withoutRelatedPost(this.content) : relatedPost = null;
 }
+
+class DoDeleteCommentEvent extends CommentEvent {
+  final String commentId;
+
+  DoDeleteCommentEvent(this.commentId);
+}

@@ -62,4 +62,25 @@ class CommentRepositoryImpl implements CommentRepository {
       throw Exception('Failed to create the comment');
     }
   }
+
+  @override
+  Future<void> deleteComment(String commentId) async {
+    String? token = await getTokenFromSharedPreferences();
+
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    final response = await http.delete(
+      Uri.parse('http://10.0.2.2:8080/comments/delete/$commentId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 204) {
+    } else {
+      throw Exception('Failed to delete comment: ${response.statusCode}');
+    }
+  }
 }

@@ -4,4 +4,5 @@ import 'package:global_gathering_application_1/model/reponse/comment_response.da
 abstract class CommentRepository {
   Future<List<CommentResponse>> getComments();
   Future<CommentResponse> createAcomment(CommentDto commentDto);
+  Future<void> deleteComment(String commentId);
 }

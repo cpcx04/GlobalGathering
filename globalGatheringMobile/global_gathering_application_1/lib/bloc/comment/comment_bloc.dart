@@ -12,6 +12,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   CommentBloc(this._commentRepository) : super(CommentInitial()) {
     on<DoCommentEvent>(_onCommentFetchList);
     on<DoCreateCommentEvent>(_onCreateComment);
+    on<DoDeleteCommentEvent>(_onDeleteComment);
   }
 
   void _onCommentFetchList(
@@ -33,6 +34,20 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       final CommentResponse commentResponse =
           await _commentRepository.createAcomment(commentDto);
       emit(CreateCommentSucess(commentResponse));
+    } catch (e) {
+      emit(CommentError(e.toString()));
+    }
+  }
+
+  void _onDeleteComment(
+      DoDeleteCommentEvent deleteEvent, Emitter<CommentState> emit) async {
+    try {
+      await _commentRepository.deleteComment(deleteEvent.commentId);
+
+      final commentList = await _commentRepository.getComments();
+      emit(CommentFetchSucess(commentList));
+
+      emit(CommentDeleteSuccess());
     } catch (e) {
       emit(CommentError(e.toString()));
     }
