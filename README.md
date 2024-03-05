@@ -26,7 +26,7 @@
 - [Descripción](#-descripcion)
 - [Por qué Global Gathering?](#-why-global-gathering)
 - [Estado](#-estado)
-- [Ejemplo de uso](#-examples)
+- [Ejemplo de uso](#-uso)
 - [Despliegue](#-despliegue)
 - [Tecnologias](#-tecnologias)
 - [Personas desarrolladoras](#-colaboradores)
