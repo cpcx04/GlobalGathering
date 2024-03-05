@@ -5,6 +5,7 @@ import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.Comments;
 import com.salesianos.triana.edu.globalgathering.model.Post;
+import com.salesianos.triana.edu.globalgathering.repository.comment.CommentRepository;
 import com.salesianos.triana.edu.globalgathering.service.comment.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -23,6 +24,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +32,7 @@ import java.util.List;
 @RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
+    private final CommentRepository commentRepository;
 
     @Operation(summary = "findAll", description = "Find All Single Comments in the database")
     @ApiResponses(value = {
@@ -86,6 +89,29 @@ public class CommentController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(GetSingleCommentDto.of(c));
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment deleted", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value =
+                            """
+                                    {
+                                        "avatar": "https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png",
+                                        "username": "cristianpc",
+                                        "content": "Me parece increible la calva de pedro"
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "The comment cant be deleted", content = @Content)
+
+    }
+
+    )
+    @DeleteMapping("/delete/{uuid}")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "deleteAcomment", description = "Delete a comment")
+    public ResponseEntity<?> deleteComment(@PathVariable UUID uuid,@AuthenticationPrincipal Client client) {
+        commentService.delete(uuid,client);
+        return ResponseEntity.noContent().build();
     }
 
 }
