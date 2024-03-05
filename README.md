@@ -26,7 +26,7 @@
 - [Descripción](#-descripcion)
 - [Por qué Global Gathering?](#-why-global-gathering)
 - [Estado](#-estado)
-- [Ejemplo de uso](#-uso)
+- [Ejemplo de uso](#-USO)
 - [Despliegue](#-despliegue)
 - [Tecnologias](#-tecnologias)
 - [Personas desarrolladoras](#-colaboradores)
@@ -409,7 +409,8 @@ Ejemplo de cuerpo de solicitud:
   - `DoLoginLoading`: Estado durante el proceso de inicio de sesión.
   - `DoLoginSuccess`: Estado cuando el inicio de sesión es exitoso.
   - `DoLoginError`: Estado cuando hay un error en el inicio de sesión.
-## USO
+
+### USO
 
  -Logueo,creacion de comentario y de eventos 
  <p align="center">
@@ -417,8 +418,9 @@ Ejemplo de cuerpo de solicitud:
 <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/createAcommentGif.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/createAcommentGif.gif" alt="Demostración de Uso" width="300"></a>
   <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/createAEvent.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/createAEvent.gif" alt="Demostración de Uso" width="300"></a>
 </p>
-## 
--Mapas,Reserva de viaje y de eventos 
+
+-Mapas,Reserva de viaje y de eventos
+
  <p align="center">
 <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/tripGif.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/tripGif.gif" alt="Demostración de Uso" width="300"></a>
 <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/reservaDeunEvento.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/reservaDeunEvento.gif" alt="Demostración de Uso" width="300"></a>
