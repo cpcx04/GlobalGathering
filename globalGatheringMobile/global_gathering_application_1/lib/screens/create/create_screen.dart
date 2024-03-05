@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:global_gathering_application_1/screens/create/create_comment_widget.dart';
+import 'package:global_gathering_application_1/screens/create/create_event_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -12,7 +14,7 @@ class CreateScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          elevation: 1,
+          elevation: 0,
           title: Text(
             "Create",
             style: GoogleFonts.manrope(color: Colors.black),
@@ -33,10 +35,10 @@ class CreateScreen extends StatelessWidget {
                     text: 'Comment',
                   ),
                   Tab(
-                    text: 'Post',
+                    text: 'Event',
                   ),
                   Tab(
-                    text: 'Event',
+                    text: 'Post',
                   ),
                 ],
               ),
@@ -45,21 +47,11 @@ class CreateScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
+            CreateCommentWidget(),
+            CreateEventWidget(),
             Center(
               child: Text(
-                "Comment",
-                style: GoogleFonts.manrope(),
-              ),
-            ),
-            Center(
-              child: Text(
-                "Post",
-                style: GoogleFonts.manrope(),
-              ),
-            ),
-            Center(
-              child: Text(
-                "Event",
+                "Working on...",
                 style: GoogleFonts.manrope(),
               ),
             ),

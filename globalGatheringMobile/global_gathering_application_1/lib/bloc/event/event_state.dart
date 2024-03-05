@@ -23,3 +23,8 @@ final class AssigEventFetchSucess extends EventState {
   final EventDetailResponse response;
   AssigEventFetchSucess(this.response);
 }
+
+final class CreateEventSucess extends EventState {
+  final EventResponse eventResponse;
+  CreateEventSucess(this.eventResponse);
+}

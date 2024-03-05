@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository.dart';
 import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
+import 'package:global_gathering_application_1/screens/create/create_screen.dart';
 import 'package:global_gathering_application_1/screens/home/home_page.dart';
+import 'package:global_gathering_application_1/screens/post/post_screen.dart';
 import 'package:global_gathering_application_1/screens/travel/travel_screen.dart';
 import 'package:global_gathering_application_1/widgets/events/event_card.dart';
 import 'package:global_gathering_application_1/widgets/events/events_my_event_card.dart';
@@ -99,7 +101,12 @@ class _BookedPageState extends State<BookedPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PostScreen()),
+                      );
+                    },
                     icon: const Icon(Icons.video_collection_rounded),
                     color: Colors.white,
                   ),
@@ -121,7 +128,10 @@ class _BookedPageState extends State<BookedPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(255, 20, 12, 71),
           onPressed: () {
-            // Add your functionality for the FloatingActionButton
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateScreen()),
+            );
           },
           child: const Icon(Icons.add, color: Colors.white, size: 25),
         ),

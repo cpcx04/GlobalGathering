@@ -68,7 +68,7 @@ class EventCard extends StatelessWidget {
               child: Row(
                 children: [
                   const Icon(
-                    Icons.location_on,
+                    Icons.person,
                     size: 12,
                     color: Colors.grey,
                   ),

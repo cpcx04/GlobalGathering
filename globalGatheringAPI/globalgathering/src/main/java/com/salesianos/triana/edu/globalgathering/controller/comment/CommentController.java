@@ -1,9 +1,11 @@
 package com.salesianos.triana.edu.globalgathering.controller.comment;
 
+import com.salesianos.triana.edu.globalgathering.dto.comment.AddACommentDto;
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
-import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDto;
+import com.salesianos.triana.edu.globalgathering.model.Client;
+import com.salesianos.triana.edu.globalgathering.model.Comments;
+import com.salesianos.triana.edu.globalgathering.model.Post;
 import com.salesianos.triana.edu.globalgathering.service.comment.CommentService;
-import com.salesianos.triana.edu.globalgathering.service.event.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,12 +14,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,6 +61,31 @@ public class CommentController {
         }
 
         return ResponseEntity.ok(allComments);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Creation of a new comment", content = {
+                    @Content(mediaType = "application/json", examples = { @ExampleObject(value =
+                            """
+                                    {
+                                        "avatar": "https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png",
+                                        "username": "cristianpc",
+                                        "content": "Me parece increible la calva de pedro"
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "The creation of the comment has not been done", content = @Content)
+
+    }
+
+    )
+    @PostMapping("/new")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "addInventoryItem", description = "Create a new Comment")
+    public ResponseEntity<GetSingleCommentDto> addComment(@Valid @RequestBody AddACommentDto commentDto, @AuthenticationPrincipal Client client) {
+        Comments c = commentService.newComment(commentDto,client);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(GetSingleCommentDto.of(c));
     }
 
 }

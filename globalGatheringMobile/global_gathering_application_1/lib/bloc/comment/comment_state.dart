@@ -19,3 +19,8 @@ final class CommentError extends CommentState {
   final String message;
   CommentError(this.message);
 }
+
+final class CreateCommentSucess extends CommentState {
+  final CommentResponse commentResponse;
+  CreateCommentSucess(this.commentResponse);
+}

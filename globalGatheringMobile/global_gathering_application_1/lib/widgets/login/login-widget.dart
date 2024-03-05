@@ -79,6 +79,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   _buildLoginForm() {
+    userTextController.text = "cristianpc";
+    passTextController.text = "admin1";
     return Column(
       children: [
         Center(
