@@ -362,6 +362,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "deleteAComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comments/delete/e542c583-2b19-4c7d-b267-99f4c8bce00c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"delete",
+								"e542c583-2b19-4c7d-b267-99f4c8bce00c"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
