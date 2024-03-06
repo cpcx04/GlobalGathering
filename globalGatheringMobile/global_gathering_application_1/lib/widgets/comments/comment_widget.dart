@@ -111,11 +111,9 @@ class _CommentWidgetState extends State<CommentWidget> {
                 },
                 onDismissed: (DismissDirection direction) {
                   if (direction == DismissDirection.endToStart) {
-                    // Update the underlying data by removing the deleted comment
                     BlocProvider.of<CommentBloc>(context)
                         .add(DoDeleteCommentEvent(comment.uuid!));
 
-                    // Trigger a rebuild after updating the data
                     setState(() {});
                   }
                 },

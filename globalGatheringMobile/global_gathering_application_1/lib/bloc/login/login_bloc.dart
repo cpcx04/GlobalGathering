@@ -18,17 +18,29 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   void _doLogin(DoLoginEvent event, Emitter<LoginState> emit) async {
     emit(DoLoginLoading());
     final SharedPreferences prefs = await _prefs;
+
     try {
       final LoginDto loginDto = LoginDto(
         username: event.username,
         password: event.password,
       );
+
       final RegisterReponse registerReponse =
           await authRepository.login(loginDto);
-      emit(DoLoginSuccess(registerReponse));
-      prefs.setString("token", registerReponse.token!);
-      prefs.setString("uuid", registerReponse.id!);
-      prefs.setString("username", registerReponse.username!);
+
+      if (registerReponse.token != null &&
+          registerReponse.id != null &&
+          registerReponse.username != null) {
+        emit(DoLoginSuccess(registerReponse));
+
+        prefs.setString("token", registerReponse.token!);
+        prefs.setString("uuid", registerReponse.id!);
+        prefs.setString("username", registerReponse.username!);
+        prefs.setString("email", registerReponse.email!);
+        prefs.setString("name", registerReponse.nombre!);
+      } else {
+        emit(DoLoginError("Invalid response format"));
+      }
     } catch (e) {
       emit(DoLoginError(e.toString()));
     }

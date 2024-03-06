@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => PostScreen()),
                     );
                   },
-                  icon: const Icon(Icons.video_collection_rounded),
+                  icon: const Icon(Icons.mode_of_travel_sharp),
                   color: Colors.white,
                 ),
               ),

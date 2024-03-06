@@ -45,9 +45,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       await _commentRepository.deleteComment(deleteEvent.commentId);
 
       final commentList = await _commentRepository.getComments();
-      emit(CommentFetchSucess(commentList));
-
       emit(CommentDeleteSuccess());
+      emit(CommentFetchSucess(commentList));
     } catch (e) {
       emit(CommentError(e.toString()));
     }

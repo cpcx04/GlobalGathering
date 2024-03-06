@@ -84,7 +84,7 @@ class PostScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.video_collection_rounded),
+                  icon: const Icon(Icons.mode_of_travel_sharp),
                   color: Colors.white,
                 ),
               ),
