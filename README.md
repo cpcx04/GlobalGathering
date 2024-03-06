@@ -426,9 +426,8 @@ Ejemplo de cuerpo de solicitud:
 
  <p align="center">
 <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/tripGif.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/tripGif.gif" alt="Demostración de Uso" width="300"></a>
-<a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/reservaDeunEvento.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/reservaDeunEvento.gif" alt="Demostración de Uso" width="300"></a>
-  <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/ticket.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/ticket.gif" alt="Demostración de Uso" width="300"></a>
-     <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/profilePage.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/profilePage.gif" alt="Demostración de Uso" width="300"></a>
+<a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/ticket.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/ticket.gif" alt="Demostración de Uso" width="300"></a>
+  <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/profilePage.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/profilePage.gif" alt="Demostración de Uso" width="300"></a>
 </p>
 
 ## 🌏 Browser Support
