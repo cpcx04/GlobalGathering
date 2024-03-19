@@ -7,20 +7,21 @@
             <h1 class="text-3xl font-semibold mb-6 text-black h1font">Welcome Back!</h1>
             <h1 class="text-sm mb-6 text-gray-500 subh1font">We are very happy to see you back</h1>
           </div>
-          <form action="#" method="POST" class="space-y-4"  (ngSumbit)="onSubmit()"  [formGroup]="loginForm" >
+          <form (ngSubmit)="login()" class="space-y-4">
             <div>
-              <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-              <input formControlName="username" type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 required placeholder-animation" placeholder="Cristian">
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input [(ngModel)]="username" type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 required placeholder-animation" placeholder="Cristian">
             </div>
-          
+            
             <div>
-              <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-              <input formControlName="password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 required placeholder-animation" placeholder="admin1">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input [(ngModel)]="password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 required placeholder-animation" placeholder="admin1">
             </div>
             <div>
-              <button type="submit" class="w-full btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] ease-out hover:translate-y-1 transition-all rounded bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
+                <button type="submit" class="w-full btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] ease-out hover:translate-y-1 transition-all rounded bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
             </div>
-          </form>
+        </form>
+        
         <div class="flex items-center justify-center my-4">
             <div class="border-t border-gray-300 w-1/4"></div>
             <div class="mx-4 text-sm text-gray-500">Or</div>

@@ -1,0 +1,47 @@
+<table *ngIf="clients.length > 0" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 animate-fade ">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Client
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Full Name
+        </th>
+        <th scope="col" class="px-6 py-3">
+          URL Image
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Date
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Active
+        </th>
+        <th scope="col" class="px-6 py-3">
+          <span class="sr-only">Edit</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let client of clients" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ client.id }}
+          </th>
+          <td class="px-6 py-4">
+            {{ client.fullName }}
+          </td>
+          <td class="px-6 py-4">
+            {{ client.url }}
+          </td>
+          <td class="px-6 py-4">
+            {{ client.date }}
+          </td>
+          <td class="px-6 py-4">
+            <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300" *ngIf="client.active">Active</span>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" *ngIf="client.active">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+  <p *ngIf="clients.length === 0" class="text-center py-4">No clients found.</p>

@@ -1,36 +1,26 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+    selector: 'app-login-form',
+    templateUrl: './login-form.component.html',
+    styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
-    constructor(private loginService: AuthService){}
+    username: string = '';
+    password: string = '';
 
-    loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(''),
-    });
+    constructor(private authService: AuthService,private router:Router) {}
 
-    onSubmit(): void {
-      const username = this.loginForm.get('username')?.value;
-      const password = this.loginForm.get('password')?.value;
-  
-      if (username && password) {
-          this.loginService.login(username, password).subscribe(
-              (resp: any) => {
-                alert('Login successful');
-              },
-              error => {
-                alert('Something went wrong');
-              }
-          );
-      } else {
-          console.error('Username and/or password are invalid');
-      }
-      this.loginForm.reset()
+    login() {
+        this.authService.login(this.username, this.password).subscribe(
+            (response) => {
+               this.router.navigate(['/home']);
+            },
+            (error) => {
+                alert('Login failed' + error);
+            }
+        );
     }
 }
