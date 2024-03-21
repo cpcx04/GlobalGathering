@@ -44,26 +44,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = getJwtTokenFromRequest(request);
 
         try {
-            if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
-                UUID userId = jwtProvider.getUserIdFromJwtToken(token);
+            if (StringUtils.hasText(token)) {
+                if (token.startsWith(JwtProvider.TOKEN_PREFIX)) {
 
-                Optional<Client> result = clientService.findById(userId);
+                    token = token.substring(JwtProvider.TOKEN_PREFIX.length());
+                    handleAccessToken(token, request, response);
+                } else {
 
-                if (result.isPresent()) {
-                    Client user = result.get();
-
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(
-                                    user,
-                                    null,
-                                    user.getAuthorities()
-                            );
-
-                    authentication.setDetails(new WebAuthenticationDetails(request));
-
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    handleRefreshToken(token, request, response);
                 }
-
             }
 
             filterChain.doFilter(request, response);
@@ -72,10 +61,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             log.info("Authentication error using token JWT: " + ex.getMessage());
             resolver.resolveException(request, response, null, ex);
         }
-
-
-
     }
+
 
     private String getJwtTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(JwtProvider.TOKEN_HEADER);
@@ -83,5 +70,48 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return bearerToken.substring(JwtProvider.TOKEN_PREFIX.length());
         }
         return null;
+    }
+
+    private void handleAccessToken(String accessToken, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            if (jwtProvider.validateToken(accessToken)) {
+                UUID userId = jwtProvider.getUserIdFromJwtToken(accessToken);
+                Optional<Client> result = clientService.findById(userId);
+                if (result.isPresent()) {
+                    Client user = result.get();
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    user,
+                                    null,
+                                    user.getAuthorities()
+                            );
+                    authentication.setDetails(new WebAuthenticationDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+        } catch (JwtTokenException ex) {
+            log.info("Authentication error using access token: " + ex.getMessage());
+            resolver.resolveException(request, response, null, ex);
+        }
+    }
+
+    private void handleRefreshToken(String refreshToken, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            if (jwtProvider.validateRefreshToken(refreshToken)) {
+                UUID userId = jwtProvider.getUserIdFromRefreshToken(refreshToken);
+                Optional<Client> result = clientService.findById(userId);
+                if (result.isPresent()) {
+                    Client user = result.get();
+                    String newAccessToken = jwtProvider.generateToken(user);
+                    String newRefreshToken = jwtProvider.generateRefreshToken(user);
+
+                    response.addHeader("New-Access-Token", JwtProvider.TOKEN_PREFIX + newAccessToken);
+                    response.addHeader("New-Refresh-Token", JwtProvider.TOKEN_PREFIX + newRefreshToken);
+                }
+            }
+        } catch (JwtTokenException ex) {
+            log.info("Authentication error using refresh token: " + ex.getMessage());
+            resolver.resolveException(request, response, null, ex);
+        }
     }
 }

@@ -29,6 +29,9 @@ public class JwtProvider {
 
     @Value("${jwt.duration}")
     private int jwtLifeInDays;
+
+    @Value("${jwt.refresh.duration}")
+    private int jwtRefreshLifeInDays;
     private JwtParser jwtParser;
 
     private SecretKey secretKey;
@@ -110,5 +113,43 @@ public class JwtProvider {
         //return false;
 
     }
+
+    public String generateRefreshToken(Client user) {
+        Date refreshTokenExpirationDateTime =
+                Date.from(
+                        LocalDateTime
+                                .now()
+                                .plusDays(jwtRefreshLifeInDays)
+                                .atZone(ZoneId.systemDefault())
+                                .toInstant()
+                );
+
+        return Jwts.builder()
+                .setHeaderParam("typ", TOKEN_TYPE)
+                .setSubject(user.getId().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(refreshTokenExpirationDateTime)
+                .signWith(secretKey)
+                .compact();
+    }
+
+
+    public UUID getUserIdFromRefreshToken(String refreshToken) {
+        Claims claims = jwtParser.parseClaimsJws(refreshToken).getBody();
+        String subject = claims.getSubject();
+        return UUID.fromString(subject);
+    }
+
+
+    public boolean validateRefreshToken(String refreshToken) {
+        try {
+            jwtParser.parse(refreshToken);
+            return true;
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+            log.info("Error with refresh token: " + ex.getMessage());
+            return false;
+        }
+    }
+
 
 }
