@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,5 +7,17 @@ import { Component } from '@angular/core';
 })
 export class NavBarComponent {
 
-  
+  constructor(private renderer: Renderer2) {}
+
+ toggleSidebar() {
+  const sidebar = document.querySelector('.docs-sidebar');
+  if (sidebar) {
+    if (sidebar.classList.contains('hidden')) {
+      this.renderer.removeClass(sidebar, 'hidden');
+    } else {
+      this.renderer.addClass(sidebar, 'hidden');
+    }
+  }
+}
+
 }

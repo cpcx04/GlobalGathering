@@ -6,63 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './table-ui.component.css'
 })
 export class TableUiComponent {
-  clients = [
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-    {
-      id: 'A',
-      fullName: 'Client Full Name',
-      url: 'URL Image',
-      date: 'Date',
-      active: true
-    },
-  ];
+ 
 }
 

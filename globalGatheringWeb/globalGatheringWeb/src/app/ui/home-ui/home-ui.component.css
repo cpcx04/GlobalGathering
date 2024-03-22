@@ -1,16 +1,9 @@
-.container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .table-container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Estilos opcionales para centrar el contenido verticalmente */
-  .container, .table-container {
-    align-items: center;
-    height: 100vh; 
-  }
-  
+.flex {
+  display: flex;
+}
+.flex-none {
+  flex: none; 
+}
+.flex-1 {
+  flex: 1; 
+}
