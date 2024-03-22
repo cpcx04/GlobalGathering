@@ -99,6 +99,4 @@ public class ClientController {
                 .body(JwtUserResponse.of(user, token));
     }
 
-
-
 }
