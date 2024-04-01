@@ -11,13 +11,13 @@
             <span class="mt-1 font-medium text-secondary-dark text-lg/normal">All the clients of our app</span>
           </h3>
           <div class="relative flex flex-wrap items-center my-2">
-            <a href="javascript:void(0)" class="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"> See other projects </a>
+            <a href="javascript:void(0)" class="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"> Create a Client </a>
           </div>
         </div>
     
         <div class="flex-auto block py-8 pt-6 px-9">
           <div class="overflow-x-auto">
-            <table class="w-full my-0 align-middle text-dark border-neutral-200">
+            <table class="w-full my-0 align-middle text-dark border-neutral-200 ">
               <thead class="align-bottom">
                 <tr class="font-semibold text-[0.95rem] text-secondary-dark">
                   <th class="pb-3 text-start min-w-[175px]">ID</th>
@@ -30,26 +30,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let cliente of clientes" class="hover:bg-slate-200">
                   <td >
                     <div class="flex">
-                        <div class="justify-start">
-                            e062bb13-56e8-43ff-94d8-59adea71a0c6
+                        <div class="justify-start ">
+                            {{cliente.id}}
                         </div>
                     </div>
                   </td>
                   <td class="p-3 pr-0 text-end">
-                    <span class="font-semibold text-light-inverse text-md/normal">cristianpc</span>
+                    <span class="font-semibold text-light-inverse text-md/normal">{{cliente.username}}</span>
                   </td>
                   
                   <td class="p-3 pr-12">
-                    <span class="font-semibold text-light-inverse text-md/normal">cristianpcarrobagm.com</span>
+                    <span class="font-semibold text-light-inverse text-md/normal">{{cliente.email}}</span>
                 </td>
                   <td class="pr-0 ">
-                    <span class="font-semibold text-light-inverse text-md/normal">Cristian Pulido Cabello</span>
+                    <span class="font-semibold text-light-inverse text-md/normal">{{cliente.nombre}}</span>
                   </td>
                 <td class="pr-0 text-end">
-                    <span class="font-semibold text-light-inverse text-md/normal">ADMIN</span>
+                    <span class="font-semibold text-light-inverse text-md/normal">{{cliente.role}}</span>
                 </td>
                 <td class="pr-0 text-end">
                     <button class="inline-block mx-2 text-light-inverse" onclick="editUser()"> 

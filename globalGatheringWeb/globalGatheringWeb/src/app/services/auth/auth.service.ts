@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { enviroment } from '../enviroments/enviroment';
-import { LoginResponse } from '../models/login-response.interface';
+import { enviroment } from '../../enviroments/enviroment';
+import { LoginResponse } from '../../models/login-response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +12,8 @@ import { LoginResponse } from '../models/login-response.interface';
 export class AuthService {
     private apiUrl = `${enviroment.apiBaseUrl}/auth`;
     private authTokenKey = 'authToken';
+    private nombre = 'nombre';
+    private role = 'role';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -26,6 +28,8 @@ export class AuthService {
         }).pipe(
             tap(response => {
                 localStorage.setItem(this.authTokenKey, response.token);
+                localStorage.setItem(this.nombre, response.nombre);
+                localStorage.setItem(this.role, response.role);
                 this.router.navigate(['/home']); 
             }),
             catchError(error => {

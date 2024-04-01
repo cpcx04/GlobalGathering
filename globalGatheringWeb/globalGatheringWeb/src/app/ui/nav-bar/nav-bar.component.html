@@ -12,12 +12,12 @@
             <div class="flex items-center mr-5">
             <div class="mr-5">
                 <div class="inline-block relative shrink-0 cursor-pointer rounded-[.95rem]">
-                <img class="w-[40px] h-[40px] shrink-0 inline-block rounded-[.95rem]" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar1.jpg" alt="avatar image">
+                <img class="w-[40px] h-[40px] shrink-0 inline-block rounded-[.95rem]" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="avatar image">
                 </div>
             </div>
             <div class="mr-2 ">
-                <a href="javascript:void(0)" class="dark:hover:text-primary hover:text-primary transition-colors duration-200 ease-in-out text-[1.075rem] font-medium dark:text-neutral-400/90 text-secondary-inverse">Robert Jason</a>
-                <span class="text-secondary-dark dark:text-stone-500 font-medium block text-[0.85rem]">SEO Manager</span>
+                <a href="javascript:void(0)" class="dark:hover:text-primary hover:text-primary transition-colors duration-200 ease-in-out text-[1.075rem] font-medium dark:text-neutral-400/90 text-secondary-inverse">{{ nombreUsuario }}</a>
+                <span class="text-secondary-dark dark:text-stone-500 font-medium block text-[0.85rem]">{{ rolUsuario }}</span>
             </div>
             </div>
             <a class="inline-flex relative items-center group justify-end text-base font-medium leading-normal text-center align-middle cursor-pointer rounded-[.95rem] transition-colors duration-150 ease-in-out text-dark bg-transparent shadow-none border-0" href="javascript:void(0)">
@@ -32,65 +32,30 @@
 
 
 
-        <div class="relative pl-3 my-5 overflow-y-scroll">
+        <div class="relative pl-3 my-5">
             <div class="flex flex-col w-full font-medium">
 
+                <div>
+                    <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]"
+                          [ngClass]="{'font-extrabold sombra': isHomeRoute}">
+                      <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Clients</a>
+                    </span>
+                  </div>
+                  
+
             <div>
                 <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Sales</a>
+                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Events</a>
                 </span>
             </div>
 
-
-            <!-- menu item -->
             <div>
                 <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Profile</a>
+                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Comments</a>
                 </span>
             </div>
 
-            <!-- menu item -->
-            <div>
-                <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Settings</a>
-                </span>
-            </div>
-
-            <!-- menu item -->
-            <div class="block pt-5 pb-[.15rem]">
-                <div class="px-4 py-[.65rem]">
-                <span class="font-semibold text-[0.95rem] uppercase dark:text-neutral-500/80 text-secondary-dark">Applications</span>
-                </div>
-            </div>
-
-            <!-- menu item -->
-            <div>
-                <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Users</a>
-                </span>
-            </div>
-
-
-            <!-- menu item -->
-            <div>
-                <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Orders</a>
-                </span>
-            </div>
-
-            <!-- menu item -->
-            <div>
-                <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Track Order</a>
-                </span>
-            </div>
-
-            <!-- menu item -->
-            <div>
-                <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                <a href="javascript:;" class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Products</a>
-                </span>
-            </div>
+           
 
             </div>
             </div>
