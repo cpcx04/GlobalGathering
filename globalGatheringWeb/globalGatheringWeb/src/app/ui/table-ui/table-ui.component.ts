@@ -9,6 +9,7 @@ import { ClienteResponse } from '../../models/clients.interface';
   styleUrls: ['./table-ui.component.css']
 })
 export class TableUiComponent implements OnInit {
+  
 deleteUser(_t14: ClienteResponse) {
 throw new Error('Method not implemented.');
 }
