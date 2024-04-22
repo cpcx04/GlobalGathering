@@ -1,11 +1,15 @@
 package com.salesianos.triana.edu.globalgathering.service.client;
 
 import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
+import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
+import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.salesianos.triana.edu.globalgathering.model.PermissionRole.USER;
 
@@ -24,6 +28,13 @@ public class ClientWorkerService {
 
         return userWorkerRepository.save(user);
     }
+
+    public List<ClientResponse> getAllClients() {
+        List<ClientWorker> getClients = userWorkerRepository.findAll();
+        return getClients.stream().map(ClientResponse::of).toList();
+
+    }
+
 
 
 }

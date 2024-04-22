@@ -85,21 +85,18 @@ public class ClientController {
     })
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> loginUser(@RequestBody Login loginUser) throws Exception {
-            Authentication authentication = authManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginUser.username(),
-                            loginUser.password()));
+        Authentication authentication = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginUser.username(),
+                        loginUser.password()));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String token = jwtProvider.generateToken(authentication);
-            Client user = (Client) authentication.getPrincipal();
+        String token = jwtProvider.generateToken(authentication);
+        Client user = (Client) authentication.getPrincipal();
 
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(JwtUserResponse.of(user, token));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(JwtUserResponse.of(user, token));
     }
-
-
-
 
 }

@@ -30,11 +30,16 @@ public class JwtUserResponse extends ClientResponse {
         role = userResponse.getRole();
     }
 
-    public static JwtUserResponse of (Client user, String token) {
+    public JwtUserResponse(Client user, String accessToken, String refreshToken) {
+        super(user.getId().toString(), user.getUsername(), user.getFullName(), user.getEmail(), user.getRole().toString(), user.getCreatedAt());
+        this.token = accessToken;
+        this.refreshToken = refreshToken;
+    }
+
+    public static JwtUserResponse of(Client user, String token) {
         JwtUserResponse result = new JwtUserResponse(ClientResponse.of(user));
         result.setToken(token);
         return result;
-
     }
 
 }
