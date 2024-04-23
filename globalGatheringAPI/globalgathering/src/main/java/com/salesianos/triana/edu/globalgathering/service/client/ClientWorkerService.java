@@ -2,14 +2,18 @@ package com.salesianos.triana.edu.globalgathering.service.client;
 
 import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
+import com.salesianos.triana.edu.globalgathering.dto.user.EditUser;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
+import com.salesianos.triana.edu.globalgathering.model.PermissionRole;
 import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.salesianos.triana.edu.globalgathering.model.PermissionRole.USER;
 
@@ -33,6 +37,18 @@ public class ClientWorkerService {
         List<ClientWorker> getClients = userWorkerRepository.findAll();
         return getClients.stream().map(ClientResponse::of).toList();
 
+    }
+
+    public ClientWorker editClient(UUID id, EditUser editUser) {
+        ClientWorker client = userWorkerRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Client not found with id: " + id));
+
+        client.setUsername(editUser.username());
+        client.setFullName(editUser.fullName());
+        client.setEmail(editUser.email());
+        client.setRole(editUser.role());
+
+        return userWorkerRepository.save(client);
     }
 
 
