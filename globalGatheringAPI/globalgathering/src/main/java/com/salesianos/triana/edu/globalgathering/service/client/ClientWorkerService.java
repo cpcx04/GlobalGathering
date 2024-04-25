@@ -7,7 +7,9 @@ import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import com.salesianos.triana.edu.globalgathering.model.PermissionRole;
 import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,14 +45,35 @@ public class ClientWorkerService {
         ClientWorker client = userWorkerRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Client not found with id: " + id));
 
-        client.setUsername(editUser.username());
-        client.setFullName(editUser.fullName());
-        client.setEmail(editUser.email());
-        client.setRole(editUser.role());
+        if (editUser.username() != null) {
+            client.setUsername(editUser.username());
+        }
+        if (editUser.fullName() != null) {
+            client.setFullName(editUser.fullName());
+        }
+        if (editUser.email() != null) {
+            client.setEmail(editUser.email());
+        }
+        if (editUser.role() != null) {
+            client.setRole(editUser.role());
+        }
 
         return userWorkerRepository.save(client);
     }
 
 
+    @Transactional
+    public void delete(String username, UserDetails userDetails) {
+        // Verifica si el nombre de usuario coincide con el nombre de usuario del UserDetails
+        if (username.equals(userDetails.getUsername())) {
+            // No se permite eliminar el propio usuario que está en sesión
+            throw new IllegalArgumentException("No puedes eliminar tu propio usuario");
+        } else {
 
+            ClientWorker userToDelete = userWorkerRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+            userWorkerRepository.delete(userToDelete);
+        }
+    }
 }
