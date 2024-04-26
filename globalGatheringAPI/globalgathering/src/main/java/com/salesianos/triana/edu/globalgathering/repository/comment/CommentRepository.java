@@ -1,5 +1,6 @@
 package com.salesianos.triana.edu.globalgathering.repository.comment;
 
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetAllComents;
 import com.salesianos.triana.edu.globalgathering.model.Comments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +13,6 @@ public interface CommentRepository extends JpaRepository<Comments, UUID> {
 
     @Query("select c from Comments c where c.relatedPost is null")
     List<Comments> findAllCommentWithRelatedPostNullOrEmpty();
+
 
 }

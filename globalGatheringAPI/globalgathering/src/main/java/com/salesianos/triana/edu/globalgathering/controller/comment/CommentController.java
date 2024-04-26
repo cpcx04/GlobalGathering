@@ -1,6 +1,8 @@
 package com.salesianos.triana.edu.globalgathering.controller.comment;
 
 import com.salesianos.triana.edu.globalgathering.dto.comment.AddACommentDto;
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetAllComents;
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetCommentDto;
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.Comments;
@@ -66,6 +68,27 @@ public class CommentController {
         return ResponseEntity.ok(allComments);
     }
 
+ /*   @Operation(summary = "findAll", description = "Find All  Comments in the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The comments has been found", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetSingleCommentDto.class)), examples = {
+                            @ExampleObject(value = """
+                                   
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find any comment .", content = @Content),
+    })
+    @GetMapping("/allComments")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<GetAllComents>> findAllComments() {
+        List<GetAllComents> allComments = commentService.findAll();
+
+        if (allComments.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(allComments);
+    }*/
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Creation of a new comment", content = {
                     @Content(mediaType = "application/json", examples = { @ExampleObject(value =
@@ -108,7 +131,7 @@ public class CommentController {
     )
     @DeleteMapping("/delete/{uuid}")
     @PreAuthorize("isAuthenticated()")
-    @Operation(summary = "deleteAcomment", description = "Delete a comment")
+    @Operation(summary = "deleteAcomment", description = "Delete a comment") /*Falta internacionoalizar errores*/
     public ResponseEntity<?> deleteComment(@PathVariable UUID uuid,@AuthenticationPrincipal Client client) {
         commentService.delete(uuid,client);
         return ResponseEntity.noContent().build();

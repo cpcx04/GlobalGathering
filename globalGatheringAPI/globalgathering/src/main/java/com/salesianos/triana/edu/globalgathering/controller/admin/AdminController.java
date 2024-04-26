@@ -6,7 +6,7 @@ import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
 import com.salesianos.triana.edu.globalgathering.dto.user.EditUser;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
-import com.salesianos.triana.edu.globalgathering.security.jwt.JwtProvider;
+import com.salesianos.triana.edu.globalgathering.security.jwt.*;
 import com.salesianos.triana.edu.globalgathering.service.client.ClientWorkerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -105,13 +105,24 @@ public class AdminController {
     }
 
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Client Delete")
+            @ApiResponse(responseCode = "204", description = "Client Delete"),
+            @ApiResponse(responseCode = "405", description = "You cant delete your own user", content = @Content),
     })
     @Operation(summary = "Delete a Client",description = "Delete Client a client checking it exists in the database")
-    @DeleteMapping("clients/{username}")
+    @DeleteMapping("/clients/{username}")
     public ResponseEntity<?> deleteClientById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String username){
         userWorkerService.delete(username,userDetails);
         return ResponseEntity.noContent().build();
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Client Banned"),
+            @ApiResponse(responseCode = "405", description = "You cant ban your own user", content = @Content),
+    })
+    @PutMapping("/clients/ban/{username}")
+    public ResponseEntity<?> banUser(@PathVariable String username, @AuthenticationPrincipal UserDetails userDetails) {
+            userWorkerService.banUser(username, userDetails);
+            return ResponseEntity.noContent().build();
+        }
 }
+

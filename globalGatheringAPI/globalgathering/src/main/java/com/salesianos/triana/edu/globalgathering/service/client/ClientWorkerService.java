@@ -3,6 +3,7 @@ package com.salesianos.triana.edu.globalgathering.service.client;
 import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
 import com.salesianos.triana.edu.globalgathering.dto.user.EditUser;
+import com.salesianos.triana.edu.globalgathering.exception.client.SameUsernameException;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import com.salesianos.triana.edu.globalgathering.model.PermissionRole;
@@ -64,16 +65,27 @@ public class ClientWorkerService {
 
     @Transactional
     public void delete(String username, UserDetails userDetails) {
-        // Verifica si el nombre de usuario coincide con el nombre de usuario del UserDetails
         if (username.equals(userDetails.getUsername())) {
-            // No se permite eliminar el propio usuario que está en sesión
-            throw new IllegalArgumentException("No puedes eliminar tu propio usuario");
+            throw new SameUsernameException();
         } else {
 
             ClientWorker userToDelete = userWorkerRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
             userWorkerRepository.delete(userToDelete);
+        }
+    }
+
+    @Transactional
+    public void banUser(String username, UserDetails userDetails) {
+        if (username.equals(userDetails.getUsername())) {
+            throw new SameUsernameException();
+        } else {
+            ClientWorker userToBan = userWorkerRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+            userToBan.setAccountNonLocked(false);
+            userWorkerRepository.save(userToBan);
         }
     }
 }
