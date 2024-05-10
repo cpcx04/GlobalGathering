@@ -31,10 +31,18 @@ public class Post {
     @JoinColumn(name = "related_trip_id")
     private Event relatedTrip;
 
+    private String comment;
+
+    private String name;
+
+    private String uri;
+
+    private  String type;
+
+    private long size;
+
     @OneToMany(mappedBy = "relatedPost", cascade = CascadeType.ALL)
     private List<Comments> comments;
-
-
 
 
 }
