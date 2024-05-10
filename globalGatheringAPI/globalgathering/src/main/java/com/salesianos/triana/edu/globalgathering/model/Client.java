@@ -69,6 +69,7 @@ public abstract class Client implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+    private boolean banned = false;
 
     @CreatedDate
     private LocalDateTime createdAt;

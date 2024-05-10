@@ -14,10 +14,9 @@ public record EditUser(
         @Size(min = 3, message = "{addUser.fullname.size}")
         String fullName,
 
-        @Email
+        @NotBlank(message = "{addUser.email.notblank}")
+        @Email(message = "{addUser.email.email}")
         String email,
-
-        @NotBlank
         PermissionRole role
 ) {
 }

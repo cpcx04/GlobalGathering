@@ -90,10 +90,15 @@ public class ClientController {
                         loginUser.username(),
                         loginUser.password()));
 
+        Client user = (Client) authentication.getPrincipal();
+
+        if (user.isBanned()) {
+            throw new Exception("Usuario prohibido. No se puede iniciar sesión.");
+        }
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtProvider.generateToken(authentication);
-        Client user = (Client) authentication.getPrincipal();
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(JwtUserResponse.of(user, token));

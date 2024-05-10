@@ -5,7 +5,9 @@ import com.salesianos.triana.edu.globalgathering.model.Event;
 import com.salesianos.triana.edu.globalgathering.model.Post;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public record GetPostDto (
 
@@ -30,5 +32,6 @@ public record GetPostDto (
 
         );
     }
+
 
 }

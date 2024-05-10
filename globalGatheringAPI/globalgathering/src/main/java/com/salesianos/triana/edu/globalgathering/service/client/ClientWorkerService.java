@@ -84,7 +84,7 @@ public class ClientWorkerService {
             ClientWorker userToBan = userWorkerRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
-            userToBan.setAccountNonLocked(false);
+            userToBan.setBanned(true);
             userWorkerRepository.save(userToBan);
         }
     }

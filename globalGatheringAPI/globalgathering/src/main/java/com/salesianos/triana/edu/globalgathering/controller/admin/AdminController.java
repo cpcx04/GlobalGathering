@@ -1,7 +1,5 @@
 package com.salesianos.triana.edu.globalgathering.controller.admin;
 
-import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
-import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.user.ClientResponse;
 import com.salesianos.triana.edu.globalgathering.dto.user.EditUser;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
@@ -19,7 +17,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,7 @@
 package com.salesianos.triana.edu.globalgathering.service.post;
 
 
+import com.salesianos.triana.edu.globalgathering.dto.post.GetPostDto;
 import com.salesianos.triana.edu.globalgathering.dto.post.NewPostDto;
 import com.salesianos.triana.edu.globalgathering.dto.post.PostResponse;
 import com.salesianos.triana.edu.globalgathering.model.Event;
@@ -12,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +37,19 @@ public class PostService {
         return postRepository.save(p);
 
     }
+    public List<GetPostDto> findAllByCreatedBy(String createdBy) {
+        List<Post> posts = postRepository.findAllByCreatedBy(createdBy);
+        return posts.stream()
+                .map(this::mapToGetPostDto)
+                .collect(Collectors.toList());
+    }
+
+    private GetPostDto mapToGetPostDto(Post post) {
+        return GetPostDto.of(
+                post,
+                new PostResponse() // Puedes crear un objeto PostResponse vacío o llenarlo según sea necesario
+        );
+    }
+
 
 }
