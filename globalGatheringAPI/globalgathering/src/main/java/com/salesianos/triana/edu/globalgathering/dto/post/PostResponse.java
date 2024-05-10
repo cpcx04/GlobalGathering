@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +19,9 @@ public class PostResponse {
     private String name;
     private String uri;
     private String type;
+    private String createdBy;
+    @CreatedDate
+    private LocalDateTime createdAt;
     private long size;
 
 

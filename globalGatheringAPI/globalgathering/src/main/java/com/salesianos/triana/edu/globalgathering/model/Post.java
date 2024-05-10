@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,19 +29,15 @@ public class Post {
     @JoinColumn(name = "related_event_id")
     private Event relatedEvent;
 
-    @ManyToOne
-    @JoinColumn(name = "related_trip_id")
-    private Event relatedTrip;
-
     private String comment;
-
-    private String name;
 
     private String uri;
 
-    private  String type;
+    private  String createdBy;
 
-    private long size;
+    @CreatedDate
+    private LocalDateTime createdAt;
+
 
     @OneToMany(mappedBy = "relatedPost", cascade = CascadeType.ALL)
     private List<Comments> comments;
