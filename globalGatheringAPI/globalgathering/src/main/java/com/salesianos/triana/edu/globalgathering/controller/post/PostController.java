@@ -73,7 +73,7 @@ public class PostController {
     ) {
         PostResponse response = uploadFile(file, userDetails.getUsername());
         Post p = postService.newPost(post, response);
-        return ResponseEntity.status(HttpStatus.CREATED).body(GetPostDto.of(p, response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(GetPostDto.of(p));
     }
 
 

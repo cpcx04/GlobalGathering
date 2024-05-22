@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +23,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final EventRepository eventRepository;
+
 
     public Post newPost(NewPostDto postDto, PostResponse postResponse){
         Optional<Event> e = Optional.ofNullable(eventRepository.findById(postDto.relatedEvent()).orElseThrow(() -> new EntityNotFoundException("Event with id" + postDto.relatedEvent() + " not found")));
@@ -46,8 +46,7 @@ public class PostService {
 
     private GetPostDto mapToGetPostDto(Post post) {
         return GetPostDto.of(
-                post,
-                new PostResponse() // Puedes crear un objeto PostResponse vacío o llenarlo según sea necesario
+                post
         );
     }
 

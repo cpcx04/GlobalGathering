@@ -1,7 +1,9 @@
 package com.salesianos.triana.edu.globalgathering.dto.post;
 
+import com.salesianos.triana.edu.globalgathering.model.Post;
 import com.salesianos.triana.edu.globalgathering.service.post.MediaTypeUrlResource;
 
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
