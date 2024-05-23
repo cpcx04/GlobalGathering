@@ -5,6 +5,7 @@ import 'package:global_gathering_application_1/model/dto/post_dto.dart';
 import 'package:global_gathering_application_1/model/reponse/post_response.dart';
 import 'package:global_gathering_application_1/repository/post/post_repository.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
 part 'post_event.dart';
@@ -32,7 +33,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       final PostDto postDto = PostDto(
           relatedEvent: postEvent.relatedEvent, comment: postEvent.comment);
-      final File file = postEvent.file;
+      final XFile file = postEvent.file;
       final post = await _postRepository.newPost(postDto, file);
       emit(GetPostFetchSuccess(post, file));
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_gathering_application_1/screens/create/create_comment_widget.dart';
 import 'package:global_gathering_application_1/screens/create/create_event_widget.dart';
+import 'package:global_gathering_application_1/screens/create/create_post_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -49,12 +50,7 @@ class CreateScreen extends StatelessWidget {
           children: [
             CreateCommentWidget(),
             CreateEventWidget(),
-            Center(
-              child: Text(
-                "Working on...",
-                style: GoogleFonts.manrope(),
-              ),
-            ),
+            CreatePostWidget(),
           ],
         ),
       ),

@@ -21,6 +21,6 @@ final class GetAllMyPostFetchSuccess extends PostState {
 
 final class GetPostFetchSuccess extends PostState {
   final PostResponse post;
-  final File file;
+  final XFile file;
   GetPostFetchSuccess(this.post, this.file);
 }

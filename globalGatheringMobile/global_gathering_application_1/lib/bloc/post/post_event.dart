@@ -21,6 +21,7 @@ class GetAllMyPostEvent extends PostEvent {
 class DoCreatePostEvent extends PostEvent {
   final String relatedEvent;
   final String comment;
-  final File file;
-  DoCreatePostEvent(this.relatedEvent, this.comment, this.file);
+  final XFile file;
+  DoCreatePostEvent(
+      {required this.relatedEvent, required this.comment, required this.file});
 }

@@ -5,22 +5,34 @@ import 'package:global_gathering_application_1/model/dto/post_dto.dart';
 import 'package:global_gathering_application_1/model/reponse/post_response.dart';
 import 'package:global_gathering_application_1/repository/post/post_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http_parser/http_parser.dart';
 
 class PostRepositoryImpl implements PostRepository {
   @override
-  Future<PostResponse> newPost(PostDto postDto, File file) async {
+  Future<PostResponse> newPost(PostDto postDto, XFile file) async {
     String? token = await getTokenFromSharedPreferences();
+
     var uri = Uri.parse('http://10.0.2.2:8080/new/post');
     var request = http.MultipartRequest('POST', uri);
-    request.files.add(await http.MultipartFile.fromPath('file', file.path));
-    request.fields['post'] = jsonEncode(postDto.toJson());
 
+    request.fields['post'] = jsonEncode(postDto.toJson());
+    final image = File(file.path);
+    final bytes = await image.readAsBytes();
+    final multipartFile = http.MultipartFile.fromBytes('file', bytes,
+        filename: file.path.split('/').last);
+
+    request.files.add(multipartFile);
     request.headers['Authorization'] = 'Bearer $token';
+    request.headers[HttpHeaders.acceptHeader] =
+        'application/json; charset=utf-8';
+    request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
+
+    request.fields['post'] = jsonEncode(postDto);
 
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-
     if (response.statusCode == 201) {
       var jsonResponse = jsonDecode(response.body);
       return PostResponse.fromJson(jsonResponse);
