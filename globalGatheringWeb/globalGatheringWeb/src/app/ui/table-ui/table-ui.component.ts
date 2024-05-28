@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/clientes/cliente.service';
-import { ClienteResponse } from '../../models/clients.interface';
+import { ClienteResponse, ClienteDto } from '../../models/clients.interface';
 
 @Component({
   selector: 'app-table-ui',
@@ -52,16 +52,34 @@ export class TableUiComponent implements OnInit {
     }
     this.isDeleteModalOpen = false;
     this.selectedCliente = null;
-}
-
-  saveEditedUser() {
-      if (this.selectedCliente) {
-          console.log('Usuario editado:', this.selectedCliente);
-      }
-      this.isEditModalOpen = false;
-      this.selectedCliente = null;
   }
 
+  saveEditedUser() {
+    if (this.selectedCliente) {
+      const clienteDto: ClienteDto = {
+        username: this.selectedCliente.username,
+        email: this.selectedCliente.email,
+        fullName: this.selectedCliente.nombre,
+        role: this.selectedCliente.role
+      };
+
+      this.clienteService.editClient(this.selectedCliente.username, clienteDto).subscribe(
+        updatedCliente => {
+          console.log('Usuario editado:', updatedCliente);
+          const index = this.clientes.findIndex(c => c.username === updatedCliente.username);
+          if (index !== -1) {
+            this.clientes[index] = updatedCliente;
+          }
+          this.isEditModalOpen = false;
+          this.selectedCliente = null;
+        },
+        error => {
+          console.error('Error al editar el usuario:', error);
+          // Manejo de errores según sea necesario
+        }
+      );
+    }
+  }
 
   get filteredClientes(): ClienteResponse[] {
     return this.clientes.filter(cliente =>

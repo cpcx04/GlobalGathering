@@ -6,3 +6,9 @@ export interface ClienteResponse {
   role: string
   createdAt: any
 }
+export interface ClienteDto {
+  username: string
+  email: string
+  fullName: string
+  role: string
+}
