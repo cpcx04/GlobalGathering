@@ -18,21 +18,22 @@ class PostRepositoryImpl implements PostRepository {
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['post'] = jsonEncode(postDto.toJson());
+
     final image = File(file.path);
     final bytes = await image.readAsBytes();
-    final multipartFile = http.MultipartFile.fromBytes('file', bytes,
-        filename: file.path.split('/').last);
+    final base64Image = base64Encode(bytes);
 
-    request.files.add(multipartFile);
+    // Agregar la imagen como un campo en la solicitud multipart
+    request.fields['file'] = base64Image;
+
     request.headers['Authorization'] = 'Bearer $token';
     request.headers[HttpHeaders.acceptHeader] =
         'application/json; charset=utf-8';
-    request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
-
-    request.fields['post'] = jsonEncode(postDto);
+    request.headers[HttpHeaders.contentTypeHeader] = 'multipart/form-data';
 
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
+
     if (response.statusCode == 201) {
       var jsonResponse = jsonDecode(response.body);
       return PostResponse.fromJson(jsonResponse);
