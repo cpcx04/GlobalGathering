@@ -42,9 +42,9 @@ public class ClientWorkerService {
 
     }
 
-    public ClientWorker editClient(UUID id, EditUser editUser) {
-        ClientWorker client = userWorkerRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("Client not found with id: " + id));
+    public ClientWorker editClient(String username, EditUser editUser) {
+        ClientWorker client = userWorkerRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Client not found with username: " + username));
 
         if (editUser.username() != null) {
             client.setUsername(editUser.username());

@@ -11,12 +11,13 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -91,15 +92,17 @@ public class AdminController {
                                                 """) }) }),
             @ApiResponse(responseCode = "404", description = "Any client was found", content = @Content),
     })
-    @PutMapping("/clients/{id}")
-    public ResponseEntity<ClientResponse> editClient(@PathVariable UUID id, @RequestBody EditUser editUser) {
+    @PutMapping("/clients/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ClientResponse> editClient(@RequestBody EditUser editUser,@PathVariable String username) {
         try {
-            ClientWorker editedClient = userWorkerService.editClient(id, editUser);
+            ClientWorker editedClient = userWorkerService.editClient(username, editUser);
             return ResponseEntity.ok(ClientResponse.of(editedClient));
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Client Delete"),
@@ -117,7 +120,8 @@ public class AdminController {
             @ApiResponse(responseCode = "405", description = "You cant ban your own user", content = @Content),
     })
     @PutMapping("/clients/ban/{username}")
-    public ResponseEntity<?> banUser(@PathVariable String username, @AuthenticationPrincipal UserDetails userDetails) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> banAUser( @AuthenticationPrincipal UserDetails userDetails,@PathVariable String username) {
             userWorkerService.banUser(username, userDetails);
             return ResponseEntity.noContent().build();
         }

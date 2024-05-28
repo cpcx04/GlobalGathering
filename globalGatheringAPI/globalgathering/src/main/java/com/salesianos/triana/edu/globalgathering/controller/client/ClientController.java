@@ -3,6 +3,7 @@ package com.salesianos.triana.edu.globalgathering.controller.client;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.dto.user.AddUser;
 import com.salesianos.triana.edu.globalgathering.dto.user.Login;
+import com.salesianos.triana.edu.globalgathering.exception.client.BannedUserException;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import com.salesianos.triana.edu.globalgathering.model.Event;
@@ -84,7 +85,7 @@ public class ClientController {
             @ApiResponse(responseCode = "400", description = "Invalid credentials")
     })
     @PostMapping("/auth/login")
-    public ResponseEntity<JwtUserResponse> loginUser(@RequestBody Login loginUser) throws Exception {
+    public ResponseEntity<?> loginUser(@RequestBody Login loginUser) throws Exception {
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.username(),
@@ -93,7 +94,8 @@ public class ClientController {
         Client user = (Client) authentication.getPrincipal();
 
         if (user.isBanned()) {
-            throw new Exception("Usuario prohibido. No se puede iniciar sesión.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Usuario prohibido. No se puede iniciar sesión.");//Esto debe cambiar,error en la gestión centralizada de errores
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

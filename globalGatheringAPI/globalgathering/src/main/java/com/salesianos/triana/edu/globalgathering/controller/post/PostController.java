@@ -38,6 +38,7 @@ public class PostController {
 
 
     @PostMapping("/new/post")
+    @CrossOrigin
     @Operation(summary = "Create a new post", description = "Endpoint to create a new post")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Post created successfully",
@@ -71,6 +72,7 @@ public class PostController {
             @RequestPart("post")NewPostDto post,
             @RequestPart("file")  MultipartFile file
     ) {
+        System.out.println(file);
         PostResponse response = uploadFile(file, userDetails.getUsername());
         Post p = postService.newPost(post, response);
         return ResponseEntity.status(HttpStatus.CREATED).body(GetPostDto.of(p));

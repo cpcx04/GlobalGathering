@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -78,15 +79,14 @@ public class SecurityConfig {
 
                                 .authorizeHttpRequests((authz) -> authz
                                         .requestMatchers(
-                                                antMatcher("/users/**"),
-                                                antMatcher("/admin/**"))
+                                                antMatcher("/users/**"))
                                         .hasRole("ADMIN")
                                         .anyRequest().authenticated());
 
                 http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
                 http.headers((headers) -> headers
-                                .frameOptions(opt -> opt.disable()));
+                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
                 return http.build();
         }
