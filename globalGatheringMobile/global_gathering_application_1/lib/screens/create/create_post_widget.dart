@@ -5,7 +5,6 @@ import 'package:global_gathering_application_1/bloc/post/post_bloc.dart';
 import 'package:global_gathering_application_1/repository/post/post_repository.dart';
 import 'package:global_gathering_application_1/repository/post/post_repository_impl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CreatePostWidget extends StatefulWidget {
   const CreatePostWidget({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
   final ImagePicker _picker = ImagePicker();
   late PostBloc _postBloc;
   late PostRepository _postRepository;
-  XFile? _image;
+  File? _image;
   String? _selectedEvent;
   bool _isLoading = false;
 
@@ -49,11 +48,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
           children: [
             GestureDetector(
               onTap: () async {
-                final pickedFile =
+                final XFile? pickedFile =
                     await _picker.pickImage(source: ImageSource.gallery);
-                setState(() {
-                  _image = pickedFile;
-                });
+                if (pickedFile != null) {
+                  setState(() {
+                    _image = File(pickedFile.path);
+                  });
+                }
               },
               child: _image == null
                   ? Container(
@@ -63,7 +64,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                       child: Icon(Icons.add_a_photo, color: Colors.white),
                     )
                   : Image.file(
-                      File(_image!.path),
+                      _image!,
                       height: 150,
                       width: 150,
                       fit: BoxFit.cover,
@@ -110,10 +111,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                         });
 
                         try {
-                          // No es necesario descargar la imagen, solo usar la ruta local
                           _postBloc.add(
                             DoCreatePostEvent(
-                              file: XFile(_image!.path),
+                              file: _image!,
                               relatedEvent: _selectedEvent!,
                               comment: _commentController.text,
                             ),

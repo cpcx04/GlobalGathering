@@ -1,4 +1,4 @@
-#Sun May 26 20:46:15 CEST 2024
+#Fri May 31 13:21:42 CEST 2024
 base.0=C\:\\Users\\pulid\\OneDrive\\Escritorio\\GlobalGatheringMobile\\GlobalGathering\\globalGatheringMobile\\global_gathering_application_1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\pulid\\OneDrive\\Escritorio\\GlobalGatheringMobile\\GlobalGathering\\globalGatheringMobile\\global_gathering_application_1\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\pulid\\OneDrive\\Escritorio\\GlobalGatheringMobile\\GlobalGathering\\globalGatheringMobile\\global_gathering_application_1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex

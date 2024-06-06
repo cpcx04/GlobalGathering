@@ -33,7 +33,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       final PostDto postDto = PostDto(
           relatedEvent: postEvent.relatedEvent, comment: postEvent.comment);
-      final XFile file = postEvent.file;
+      final File file = postEvent.file;
       final post = await _postRepository.newPost(postDto, file);
       emit(GetPostFetchSuccess(post, file));
     } catch (e) {

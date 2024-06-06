@@ -5,6 +5,6 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 abstract class PostRepository {
-  Future<PostResponse> newPost(PostDto postDto, XFile file);
+  Future<PostResponse> newPost(PostDto postDto, File file);
   Future<List<PostResponse>> getMyPosts();
 }
