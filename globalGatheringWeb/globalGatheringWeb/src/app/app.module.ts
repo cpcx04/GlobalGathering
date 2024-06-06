@@ -10,7 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { HomeUiComponent } from './ui/home-ui/home-ui.component';
 import { NavBarComponent } from './ui/nav-bar/nav-bar.component';
-import { TableUiComponent } from './ui/table-ui/table-ui.component'; // Import FormsModule here
+import { TableUiComponent } from './ui/table-clients-ui/table-ui.component';
+import { TableEventsUiComponent } from './ui/table-events-ui/table-events-ui.component';
+import { EventsPageComponent } from './components/events-page/events-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { TableUiComponent } from './ui/table-ui/table-ui.component'; // Import F
     LoginPageComponent,
     HomeUiComponent,
     NavBarComponent,
-    TableUiComponent
+    TableUiComponent,
+    TableEventsUiComponent,
+    EventsPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -10,20 +10,24 @@ import { AuthService } from '../../services/auth/auth.service';
 export class NavBarComponent implements OnInit {
   nombreUsuario: string = '';
   rolUsuario: string = '';
-  isHomeRoute: boolean = false;
+  currentRoute: string = '';
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.nombreUsuario = localStorage.getItem('nombre') || '';
     const rol = localStorage.getItem('role') || '';
     this.rolUsuario = rol.replace('ROLE_', '');
-
-    this.isHomeRoute = this.router.url === '/home';
+    this.currentRoute = this.router.url;
   }
 
   logOut(){
     this.authService.logout();
   }
-  
 }

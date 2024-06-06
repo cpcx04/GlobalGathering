@@ -13,6 +13,9 @@ export class TableUiComponent implements OnInit {
   selectedCliente: ClienteResponse | null = null;
   isDeleteModalOpen: boolean = false;
   isEditModalOpen: boolean = false;
+  errorMessage: string = '';
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(private clienteService: ClienteService) { }
 
@@ -22,6 +25,23 @@ export class TableUiComponent implements OnInit {
     });
   }
 
+
+
+  get totalPages(): number {
+    let filtered = this.clientes.filter(cliente =>
+      cliente.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      cliente.email.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      cliente.nombre.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+
+    return Math.ceil(filtered.length / this.itemsPerPage);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
   deleteUserConfirmation(cliente: ClienteResponse) {
     this.selectedCliente = cliente;
     this.isDeleteModalOpen = true;
@@ -44,15 +64,24 @@ export class TableUiComponent implements OnInit {
 
   confirmDeleteUser() {
     if (this.selectedCliente) {
-        console.log('Usuario eliminado:', this.selectedCliente);
-        const index = this.clientes.indexOf(this.selectedCliente);
-        if (index !== -1) {
+      this.clienteService.deleteClient(this.selectedCliente.username).subscribe(
+        () => {
+          console.log('Cliente eliminado exitosamente');
+          const index = this.clientes.indexOf(this.selectedCliente!);
+          if (index !== -1) {
             this.clientes.splice(index, 1);
+          }
+          this.isDeleteModalOpen = false;
+          this.selectedCliente = null;
+        },
+        error => {
+          console.error('Error al eliminar el cliente:', error);
+          this.errorMessage = 'Error occurred: ' + error.message; // Assuming error has a 'message' property
         }
+      );
     }
-    this.isDeleteModalOpen = false;
-    this.selectedCliente = null;
   }
+  
 
   saveEditedUser() {
     if (this.selectedCliente) {
@@ -74,18 +103,25 @@ export class TableUiComponent implements OnInit {
           this.selectedCliente = null;
         },
         error => {
-          console.error('Error al editar el usuario:', error);
-          // Manejo de errores según sea necesario
+          console.error('Error al eliminar el cliente:', error);
+          this.errorMessage = 'Error occurred: ' + error.message; // Assuming error has a 'message' property
         }
       );
     }
   }
 
   get filteredClientes(): ClienteResponse[] {
-    return this.clientes.filter(cliente =>
+    let filtered = this.clientes.filter(cliente =>
       cliente.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
       cliente.email.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
       cliente.nombre.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
+
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filtered.slice(startIndex, startIndex + this.itemsPerPage);
   }
+  clearError() {
+    this.errorMessage = '';
+  }
+  
 }
