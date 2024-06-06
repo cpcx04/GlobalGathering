@@ -1,6 +1,9 @@
 package com.salesianos.triana.edu.globalgathering.dto.event;
 
+import org.springframework.cglib.core.Local;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 public record AddAEvent(
         String name,
@@ -8,13 +11,15 @@ public record AddAEvent(
 
         String url,
 
-        double latitude,
+        Double latitude,
 
-        double longitude,
+        Double longitude,
 
-        double price,
+        Double price,
 
-        String ciudad
+        String ciudad,
+
+        LocalDate date
 
 ) {
 }
