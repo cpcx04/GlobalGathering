@@ -13,6 +13,7 @@ import { NavBarComponent } from './ui/nav-bar/nav-bar.component';
 import { TableUiComponent } from './ui/table-clients-ui/table-ui.component';
 import { TableEventsUiComponent } from './ui/table-events-ui/table-events-ui.component';
 import { EventsPageComponent } from './components/events-page/events-page.component';
+import { TableCommentsUiComponent } from './ui/table-comments-ui/table-comments-ui.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { EventsPageComponent } from './components/events-page/events-page.compon
     TableUiComponent,
     TableEventsUiComponent,
     EventsPageComponent,
+    TableCommentsUiComponent,
   ],
   imports: [
     BrowserModule,
