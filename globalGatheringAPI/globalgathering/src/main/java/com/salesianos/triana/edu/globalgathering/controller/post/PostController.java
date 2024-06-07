@@ -37,6 +37,7 @@ public class PostController {
     private final PostService postService;
 
 
+
     @PostMapping("/new/post")
     @CrossOrigin
     @Operation(summary = "Create a new post", description = "Endpoint to create a new post")
@@ -68,14 +69,18 @@ public class PostController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     public ResponseEntity<GetPostDto> newPost(
-            @AuthenticationPrincipal UserDetails userDetails,
-            @RequestPart("post")NewPostDto post,
+            //@RequestPart("post")NewPostDto post,
+            @RequestPart("post") String post,
             @RequestPart("file")  MultipartFile file
     ) {
-        System.out.println(file);
-        PostResponse response = uploadFile(file, userDetails.getUsername());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();        System.out.println(file);
+        PostResponse response = uploadFile(file,username);
         Post p = postService.newPost(post, response);
         return ResponseEntity.status(HttpStatus.CREATED).body(GetPostDto.of(p));
+        //System.out.println(post);
+        //return ResponseEntity.created(null).body(null);
     }
 
 
@@ -96,12 +101,17 @@ public class PostController {
                 .body(resource);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/myposts")
     public ResponseEntity<List<GetPostDto>> getAllUserPosts() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String username = authentication.getName();
         List<GetPostDto> userPosts = postService.findAllByCreatedBy(username);
+        return ResponseEntity.status(HttpStatus.OK).body(userPosts);
+    }
+    @GetMapping("/posts")
+    public ResponseEntity<List<GetPostDto>> getAllPosts() {
+        List<GetPostDto> userPosts = postService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(userPosts);
     }
     private PostResponse uploadFile(MultipartFile file,String username) {

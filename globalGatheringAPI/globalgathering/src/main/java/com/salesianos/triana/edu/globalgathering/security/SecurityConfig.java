@@ -86,7 +86,9 @@ public class SecurityConfig {
                 http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
                 http.headers((headers) -> headers
-                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
+                                .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable)
+                );
 
                 return http.build();
         }

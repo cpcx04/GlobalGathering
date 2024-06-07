@@ -1,6 +1,8 @@
 package com.salesianos.triana.edu.globalgathering.service.post;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salesianos.triana.edu.globalgathering.dto.post.GetPostDto;
 import com.salesianos.triana.edu.globalgathering.dto.post.NewPostDto;
 import com.salesianos.triana.edu.globalgathering.dto.post.PostResponse;
@@ -23,6 +25,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final EventRepository eventRepository;
+    private final ObjectMapper mapper;
 
 
     public Post newPost(NewPostDto postDto, PostResponse postResponse){
@@ -37,8 +40,24 @@ public class PostService {
         return postRepository.save(p);
 
     }
+
+    public Post newPost(String post, PostResponse postResponse) {
+        NewPostDto newPostDto = null;
+        try {
+            newPostDto = mapper.readValue(post, NewPostDto.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return newPost(newPostDto, postResponse);
+    }
     public List<GetPostDto> findAllByCreatedBy(String createdBy) {
         List<Post> posts = postRepository.findAllByCreatedBy(createdBy);
+        return posts.stream()
+                .map(this::mapToGetPostDto)
+                .collect(Collectors.toList());
+    }
+    public List<GetPostDto> findAll() {
+        List<Post> posts = postRepository.findAll();
         return posts.stream()
                 .map(this::mapToGetPostDto)
                 .collect(Collectors.toList());
