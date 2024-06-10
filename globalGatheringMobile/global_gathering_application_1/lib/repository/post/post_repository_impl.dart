@@ -11,7 +11,8 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<PostResponse> newPost(PostDto postDto, File file) async {
     String? token = await getTokenFromSharedPreferences();
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString("username");
     var uri = Uri.parse('http://10.0.2.2:8080/new/post');
     var request = http.MultipartRequest('POST', uri);
 
@@ -19,7 +20,7 @@ class PostRepositoryImpl implements PostRepository {
 
     request.files.add(http.MultipartFile.fromBytes(
         'file', await file.readAsBytes(),
-        filename: 'fichero.png'
+        filename: username
         //contentType: MediaType('multipart', 'image/png'))
         ));
 
