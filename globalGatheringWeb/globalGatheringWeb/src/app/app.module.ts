@@ -14,6 +14,11 @@ import { TableUiComponent } from './ui/table-clients-ui/table-ui.component';
 import { TableEventsUiComponent } from './ui/table-events-ui/table-events-ui.component';
 import { EventsPageComponent } from './components/events-page/events-page.component';
 import { TableCommentsUiComponent } from './ui/table-comments-ui/table-comments-ui.component';
+import { CommentsPageComponent } from './components/comments-page/comments-page.component';
+import { PostPageComponent } from './components/post-page/post-page.component';
+import { PostTableUiComponent } from './ui/post-table-ui/post-table-ui.component';
+import { DeletePostModalComponent } from './ui/delete-post-modal/delete-post-modal.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   declarations: [
@@ -27,12 +32,17 @@ import { TableCommentsUiComponent } from './ui/table-comments-ui/table-comments-
     TableEventsUiComponent,
     EventsPageComponent,
     TableCommentsUiComponent,
+    CommentsPageComponent,
+    PostPageComponent,
+    PostTableUiComponent,
+    DeletePostModalComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule, 
     AppRoutingModule,
     ReactiveFormsModule,
+    NgxImageZoomModule,
     FormsModule // Add FormsModule here
   ],
   providers: [],

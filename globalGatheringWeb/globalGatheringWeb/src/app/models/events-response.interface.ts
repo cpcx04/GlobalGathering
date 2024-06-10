@@ -1,4 +1,4 @@
-export interface Event {
+export interface Events {
   id: string;
   name: string;
   descripcion: string;

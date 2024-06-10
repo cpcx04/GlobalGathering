@@ -1,23 +1,21 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Events } from '../../models/events-response.interface';
-import { AddEventDto } from '../../models/events-response.interface';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Post } from '../../models/post.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventService {
+export class PostService {
  
-  
-  private apiUrl = 'http://localhost:8080/event';
+  private apiUrl = 'http://localhost:8080';
   private authTokenKey = 'authToken';
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<Events[]> {
-    return this.http.get<Events[]>(`${this.apiUrl}/allEvents`, {
+  createNewPost(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/new/post`, formData, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
       })
@@ -25,17 +23,8 @@ export class EventService {
       catchError(this.handleError)
     );
   }
-  deleteEvent(uuid: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${uuid}`, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
-      })
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
-  updateEvent(uuid: string, event: AddEventDto): Observable<Events> {
-    return this.http.put<Events>(`${this.apiUrl}/${uuid}`, event, {
+  getPosts(): Observable<Post[]> {
+  return this.http.get<Post[]>(`${this.apiUrl}/posts`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
       })
@@ -44,6 +33,15 @@ export class EventService {
     );
   }
 
+  deletePost(postId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/posts/${postId}`,{
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
+      })
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

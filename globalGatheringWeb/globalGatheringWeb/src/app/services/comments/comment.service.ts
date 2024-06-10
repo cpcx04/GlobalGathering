@@ -2,22 +2,20 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Events } from '../../models/events-response.interface';
-import { AddEventDto } from '../../models/events-response.interface';
+import { CommentResponse } from '../../models/comments.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventService {
+export class CommentService{
  
+    private apiUrl = 'http://localhost:8080/comments';
+    private authTokenKey = 'authToken';
   
-  private apiUrl = 'http://localhost:8080/event';
-  private authTokenKey = 'authToken';
+    constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {}
-
-  getEvents(): Observable<Events[]> {
-    return this.http.get<Events[]>(`${this.apiUrl}/allEvents`, {
+  getAllComments() : Observable<CommentResponse[]> {
+    return this.http.get<CommentResponse[]>(`${this.apiUrl}/singleComments`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
       })
@@ -25,8 +23,8 @@ export class EventService {
       catchError(this.handleError)
     );
   }
-  deleteEvent(uuid: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${uuid}`, {
+  deleteComment(uuid: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete/${uuid}`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
       })
@@ -34,16 +32,7 @@ export class EventService {
       catchError(this.handleError)
     );
   }
-  updateEvent(uuid: string, event: AddEventDto): Observable<Events> {
-    return this.http.put<Events>(`${this.apiUrl}/${uuid}`, event, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem(this.authTokenKey)}`
-      })
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
+  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
@@ -54,4 +43,5 @@ export class EventService {
     }
     return throwError('Something bad happened; please try again later.');
   }
+
 }
