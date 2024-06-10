@@ -244,5 +244,17 @@ public class EventController {
         Event updatedEvent = eventService.updateEvent(uuid, updateEventDto);
         return ResponseEntity.ok(GetEventDto.of(updatedEvent));
     }
+    @Operation(summary = "deleteEvent", description = "Delete an existing Event")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "The event has been deleted"),
+            @ApiResponse(responseCode = "404", description = "Unable to find the event to delete.", content = @Content)
+    })
+    @DeleteMapping("/{uuid}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> deleteEvent(@PathVariable UUID uuid) {
+        eventService.deleteEvent(uuid);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

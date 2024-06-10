@@ -147,4 +147,21 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+    @Transactional
+    public void deleteEvent(UUID eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id " + eventId + " not found"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!event.getCreatedBy().getUsername().equals(currentUsername) && !isAdmin) {
+            throw new AccessDeniedException("You do not have permission to delete this event");
+        }
+
+        eventRepository.delete(event);
+    }
+
 }

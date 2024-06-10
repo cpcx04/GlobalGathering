@@ -33,3 +33,7 @@ INSERT INTO comments (id, content, posted_by_id) VALUES ('0dab9d16-7406-4c4f-849
 INSERT INTO comments (id, content, posted_by_id) VALUES ('c0d1a16d-6bbd-4049-86d4-cd070862160f', 'Aventura en el Amazonas. Naturaleza en su maxima expresion.', '6465de6a-102c-4a05-8151-9fe209ecf534');
 INSERT INTO comments (id, content, posted_by_id) VALUES ('e542c583-2b19-4c7d-b267-99f4c8bce00c', 'Viviendo la magia de Disney en Orlando. #MagicKingdom', 'e062bb13-56e8-43ff-94d8-59adea71a0c6');
 INSERT INTO comments (id, content, posted_by_id) VALUES ('5f1633c9-13ae-4e14-88a2-308a3f6d2e54', 'Explore la Ciudad Prohibida en Pekin. Una joya arquitectonica.', 'e9d1486c-2b1c-4b8e-87d3-3d158b7fb8bf');
+
+-- Posts
+INSERT INTO post (id, related_event_id, comment, uri, created_by, created_at) VALUES ('02e914fc-e3aa-4f83-86c0-8b8933f0c65b', 'c5827e72-f2cf-4889-811c-85d6313bdf1e', 'Tremendo este chico, estuvo en el tour', 'http://localhost:8080/download/GBFdd0SWMAAHX1G.jpg', 'cristianpc', '2024-06-10T13:03:39.926341');
+INSERT INTO post (id, related_event_id, comment, uri, created_by, created_at) VALUES ('e857c626-9fee-457a-8cfc-6e0a47ea70d4', '7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Estuve de paso por aqui cuando fui a visitar el parque de maria luisa', 'http://localhost:8080/download/photo-of-concrete-building-near-dock-during-night-time-andalucia-andalucia-wallpaper-thumb.jpg', 'cristianpc', '2024-05-8T13:03:39.926341');

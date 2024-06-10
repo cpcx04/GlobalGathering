@@ -12,11 +12,15 @@ import com.salesianos.triana.edu.globalgathering.repository.event.EventRepositor
 import com.salesianos.triana.edu.globalgathering.repository.post.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +44,18 @@ public class PostService {
         return postRepository.save(p);
 
     }
+    public void deletePostById(UUID postId, String username) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("Post with id " + postId + " not found"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+        if (!post.getCreatedBy().equals(username) && !isAdmin) {
+            throw new AccessDeniedException("You are not authorized to delete this post");
+        }
 
+        postRepository.deleteById(postId);
+    }
     public Post newPost(String post, PostResponse postResponse) {
         NewPostDto newPostDto = null;
         try {

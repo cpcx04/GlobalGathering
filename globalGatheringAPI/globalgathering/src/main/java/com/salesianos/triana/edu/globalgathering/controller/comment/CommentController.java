@@ -68,27 +68,6 @@ public class CommentController {
         return ResponseEntity.ok(allComments);
     }
 
- /*   @Operation(summary = "findAll", description = "Find All  Comments in the database")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The comments has been found", content = {
-                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = GetSingleCommentDto.class)), examples = {
-                            @ExampleObject(value = """
-                                   
-                                                         """) }) }),
-            @ApiResponse(responseCode = "404", description = "Unable to find any comment .", content = @Content),
-    })
-    @GetMapping("/allComments")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<GetAllComents>> findAllComments() {
-        List<GetAllComents> allComments = commentService.findAll();
-
-        if (allComments.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(allComments);
-    }*/
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Creation of a new comment", content = {
                     @Content(mediaType = "application/json", examples = { @ExampleObject(value =
