@@ -115,7 +115,12 @@ class _BookedPageState extends State<BookedPage> {
                 ),
                 const SizedBox(),
                 _buildBottomNavigationBarItem(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PostScreen()),
+                    );
+                  },
                   icon: Icons.mode_of_travel_sharp,
                 ),
                 _buildBottomNavigationBarItem(

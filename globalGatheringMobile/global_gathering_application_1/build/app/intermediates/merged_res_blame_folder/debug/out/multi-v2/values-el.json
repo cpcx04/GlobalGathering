@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-15:/values-el/values-el.xml",
+            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-26:/values-el/values-el.xml",
             "map": [
                 {
                     "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\b8c7e0501cdb50e76c669e8ca99b676d\\transformed\\jetified-play-services-basement-18.0.0\\res\\values-el\\values.xml",

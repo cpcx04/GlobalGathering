@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-15:/values-sl/values-sl.xml",
+            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-26:/values-sl/values-sl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\d9d38ec9344928c1b01c151ec647a95a\\transformed\\browser-1.5.0\\res\\values-sl\\values-sl.xml",
