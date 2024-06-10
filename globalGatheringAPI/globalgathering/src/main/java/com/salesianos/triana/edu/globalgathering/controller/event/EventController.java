@@ -4,7 +4,6 @@ import com.salesianos.triana.edu.globalgathering.dto.event.AddAEvent;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDto;
 import com.salesianos.triana.edu.globalgathering.model.Client;
-import com.salesianos.triana.edu.globalgathering.model.Comments;
 import com.salesianos.triana.edu.globalgathering.model.Event;
 import com.salesianos.triana.edu.globalgathering.service.event.EventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -217,4 +216,45 @@ public class EventController {
                 .status(HttpStatus.CREATED)
                 .body(GetEventDto.of(e));
     }
+
+    @Operation(summary = "updateEvent", description = "Update an existing Event")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The event has been updated", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = GetEventDto.class), examples = {
+                            @ExampleObject(value = """
+                                {
+                                    "id": "b582965b-0a66-47a1-b0d4-ca1b8c77ce96",
+                                    "name": "Updated Event Name",
+                                    "descripcion": "Updated description",
+                                    "url": "https://example.com/updated-image.jpg",
+                                    "latitude": 37.3955175804586,
+                                    "longitude": -6.011312152239021,
+                                    "price": 150.0,
+                                    "createdBy": "cristianpc",
+                                    "ciudad": "Sevilla",
+                                    "date": "2024-03-04"
+                                }
+                                """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find the event to update.", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid input for the event.", content = @Content)
+    })
+    @PutMapping("/{uuid}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<GetEventDto> updateEvent(@PathVariable UUID uuid, @Valid @RequestBody AddAEvent updateEventDto) {
+        Event updatedEvent = eventService.updateEvent(uuid, updateEventDto);
+        return ResponseEntity.ok(GetEventDto.of(updatedEvent));
+    }
+    @Operation(summary = "deleteEvent", description = "Delete an existing Event")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "The event has been deleted"),
+            @ApiResponse(responseCode = "404", description = "Unable to find the event to delete.", content = @Content)
+    })
+    @DeleteMapping("/{uuid}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> deleteEvent(@PathVariable UUID uuid) {
+        eventService.deleteEvent(uuid);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.salesianos.triana.edu.globalgathering.controller.comment;
 
 import com.salesianos.triana.edu.globalgathering.dto.comment.AddACommentDto;
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetAllComents;
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetCommentDto;
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.Comments;
@@ -108,7 +110,7 @@ public class CommentController {
     )
     @DeleteMapping("/delete/{uuid}")
     @PreAuthorize("isAuthenticated()")
-    @Operation(summary = "deleteAcomment", description = "Delete a comment")
+    @Operation(summary = "deleteAcomment", description = "Delete a comment") /*Falta internacionoalizar errores*/
     public ResponseEntity<?> deleteComment(@PathVariable UUID uuid,@AuthenticationPrincipal Client client) {
         commentService.delete(uuid,client);
         return ResponseEntity.noContent().build();

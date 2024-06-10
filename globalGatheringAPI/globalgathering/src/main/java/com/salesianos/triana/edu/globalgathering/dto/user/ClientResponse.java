@@ -37,4 +37,5 @@ public class ClientResponse {
                 .role(getRole(user.getAuthorities()))
                 .build();
     }
+
 }

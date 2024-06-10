@@ -1,18 +1,22 @@
 package com.salesianos.triana.edu.globalgathering.service.comment;
 
 import com.salesianos.triana.edu.globalgathering.dto.comment.AddACommentDto;
+import com.salesianos.triana.edu.globalgathering.dto.comment.GetAllComents;
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetSingleCommentDto;
 import com.salesianos.triana.edu.globalgathering.exception.comment.NotOwnerOfCommentException;
 import com.salesianos.triana.edu.globalgathering.model.Client;
 import com.salesianos.triana.edu.globalgathering.model.Comments;
 import com.salesianos.triana.edu.globalgathering.model.Event;
 import com.salesianos.triana.edu.globalgathering.model.Post;
+import com.salesianos.triana.edu.globalgathering.repository.client.ClientRepository;
 import com.salesianos.triana.edu.globalgathering.repository.comment.CommentRepository;
 import com.salesianos.triana.edu.globalgathering.repository.post.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -26,6 +30,7 @@ import java.util.UUID;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final ClientRepository clientRepository;
     private final PostRepository postRepository;
     public List<GetSingleCommentDto> findSingleComments() {
         List<Comments> commentsList = commentRepository.findAllCommentWithRelatedPostNullOrEmpty();
@@ -55,8 +60,11 @@ public class CommentService {
     }
 
     @Transactional
-    public String delete(UUID id, Client currentUser) {
+    public void delete(UUID id, Client currentUser) {
         Optional<Comments> commentOptional = commentRepository.findById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
 
         if (commentOptional.isPresent()) {
             Comments comment = commentOptional.get();
@@ -64,9 +72,8 @@ public class CommentService {
             String postedByIdAsString = comment.getPostedBy().getId().toString();
             String currentUserIdAsString = currentUser.getId().toString();
 
-            if (postedByIdAsString.equals(currentUserIdAsString)) {
+            if ((postedByIdAsString.equals(currentUserIdAsString) || isAdmin)) {
                 commentRepository.deleteById(id);
-                return "Eliminado con éxito";
             } else {
                 throw new NotOwnerOfCommentException();
             }
@@ -76,4 +83,7 @@ public class CommentService {
     }
 
 
+    /*public List<GetAllComents> findAll() {
+        return clientRepository.findAllByUsername();
+    }*/
 }

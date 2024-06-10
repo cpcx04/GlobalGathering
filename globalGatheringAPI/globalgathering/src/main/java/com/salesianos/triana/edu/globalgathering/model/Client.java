@@ -31,9 +31,8 @@ public abstract class Client implements UserDetails {
     @UuidGenerator
     @Column(columnDefinition = "uuid")
     private UUID id;
-
-    @NaturalId
-    @Column(unique = true, updatable = false)
+    
+    @Column(unique = true, updatable = true)
     private String username;
 
     private String fullName;
@@ -70,6 +69,7 @@ public abstract class Client implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+    private boolean banned = false;
 
     @CreatedDate
     private LocalDateTime createdAt;

@@ -11,6 +11,7 @@ import com.salesianos.triana.edu.globalgathering.repository.event.EventRepositor
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -97,11 +98,70 @@ public class EventService {
         e.setLatitude(nuevo.latitude());
         e.setLongitude(nuevo.longitude());
         e.setPrice(nuevo.price());
-        e.setDate(LocalDate.now());
+        e.setDate(nuevo.date());
         e.setCreatedBy(client);
         e.setCiudad(nuevo.ciudad());
         e.setAbierto(true);
 
         return eventRepository.save(e);
     }
+
+    @Transactional
+    public Event updateEvent(UUID eventId, AddAEvent updateEventDto) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id " + eventId + " not found"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!event.getCreatedBy().getUsername().equals(currentUsername) && !isAdmin) {
+            throw new AccessDeniedException("You do not have permission to update this event");
+        }
+
+        if (updateEventDto.name() != null) {
+            event.setName(updateEventDto.name());
+        }
+        if (updateEventDto.descripcion() != null) {
+            event.setDescripcion(updateEventDto.descripcion());
+        }
+        if (updateEventDto.url() != null) {
+            event.setUrl(updateEventDto.url());
+        }
+        if (updateEventDto.latitude() != null) {
+            event.setLatitude(updateEventDto.latitude());
+        }
+        if (updateEventDto.longitude() != null) {
+            event.setLongitude(updateEventDto.longitude());
+        }
+        if (updateEventDto.price() != null) {
+            event.setPrice(updateEventDto.price());
+        }
+        if (updateEventDto.ciudad() != null) {
+            event.setCiudad(updateEventDto.ciudad());
+        }
+        if(updateEventDto.date() != null) {
+            event.setDate(updateEventDto.date());
+        }
+        return eventRepository.save(event);
+    }
+
+    @Transactional
+    public void deleteEvent(UUID eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id " + eventId + " not found"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!event.getCreatedBy().getUsername().equals(currentUsername) && !isAdmin) {
+            throw new AccessDeniedException("You do not have permission to delete this event");
+        }
+
+        eventRepository.delete(event);
+    }
+
 }

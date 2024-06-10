@@ -3,6 +3,8 @@ package com.salesianos.triana.edu.globalgathering.error;
 import com.salesianos.triana.edu.globalgathering.dto.event.GetEventDetailDto;
 import com.salesianos.triana.edu.globalgathering.error.impl.ApiValidationSubError;
 import com.salesianos.triana.edu.globalgathering.exception.client.AlreadyAssignedException;
+import com.salesianos.triana.edu.globalgathering.exception.client.BannedUserException;
+import com.salesianos.triana.edu.globalgathering.exception.client.SameUsernameException;
 import com.salesianos.triana.edu.globalgathering.exception.comment.NotOwnerOfCommentException;
 import com.salesianos.triana.edu.globalgathering.security.errorhandling.JwtTokenException;
 import io.jsonwebtoken.JwtException;
@@ -46,7 +48,6 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
 
-
     @ExceptionHandler({ EntityNotFoundException.class })
     public ErrorResponse handleNotFoundException(EntityNotFoundException exception) {
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
@@ -55,11 +56,29 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 .property("timestamp", Instant.now())
                 .build();
     }
+
+    @ExceptionHandler({ BannedUserException.class })
+    public ErrorResponse handleBannedUserException(BannedUserException exception) {
+        return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
+                .title("Usuario Baneado temporalmente")
+                .type(URI.create("https://api.globalghatering.com/errors/ban"))
+                .property("timestamp", Instant.now())
+                .build();
+    }
     @ExceptionHandler({ NotOwnerOfCommentException.class })
     public ErrorResponse handleNotOwnerofCommentException(NotOwnerOfCommentException exception) {
         return ErrorResponse.builder(exception, HttpStatus.NOT_FOUND, exception.getMessage())
                 .title("You are not the owner of this comment")
                 .type(URI.create("https://api.globalghatering.com/errors/not-found"))
+                .property("timestamp", Instant.now())
+                .build();
+    }
+
+    @ExceptionHandler({ SameUsernameException.class })
+    public ErrorResponse sameClientException(SameUsernameException exception) {
+        return ErrorResponse.builder(exception, HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage())
+                .title("You cant action on your own user")
+                .type(URI.create("https://api.globalghatering.com/errors/same-client"))
                 .property("timestamp", Instant.now())
                 .build();
     }
