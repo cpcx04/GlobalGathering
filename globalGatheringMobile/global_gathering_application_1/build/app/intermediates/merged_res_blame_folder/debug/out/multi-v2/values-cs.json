@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-26:/values-cs/values-cs.xml",
+            "outputFile": "com.example.global_gathering_application_1.app-mergeDebugResources-28:/values-cs/values-cs.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\889ce5bd12f1117e5357d5fcdb5e1305\\transformed\\core-1.10.1\\res\\values-cs\\values-cs.xml",
+                    "source": "C:\\Users\\pulid\\.gradle\\caches\\transforms-3\\889ce5bd12f1117e5357d5fcdb5e1305\\transformed\\core-1.10.1\\res\\values-cs\\values-cs.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\b8c7e0501cdb50e76c669e8ca99b676d\\transformed\\jetified-play-services-basement-18.0.0\\res\\values-cs\\values.xml",
+                    "source": "C:\\Users\\pulid\\.gradle\\caches\\transforms-3\\b8c7e0501cdb50e76c669e8ca99b676d\\transformed\\jetified-play-services-basement-18.0.0\\res\\values-cs\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,24 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\d9d38ec9344928c1b01c151ec647a95a\\transformed\\browser-1.5.0\\res\\values-cs\\values-cs.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,157,260,374",
-                        "endColumns": "101,102,113,100",
-                        "endOffsets": "152,255,369,470"
-                    },
-                    "to": {
-                        "startLines": "27,28,29,30",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "3038,3140,3243,3357",
-                        "endColumns": "101,102,113,100",
-                        "endOffsets": "3135,3238,3352,3453"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\pulido.cachr23_trian\\.gradle\\caches\\transforms-3\\680a2964d8a0bce7cbd43c0f88e0420c\\transformed\\jetified-play-services-base-18.0.1\\res\\values-cs\\values.xml",
+                    "source": "C:\\Users\\pulid\\.gradle\\caches\\transforms-3\\680a2964d8a0bce7cbd43c0f88e0420c\\transformed\\jetified-play-services-base-18.0.1\\res\\values-cs\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -69,6 +52,23 @@
                         "startOffsets": "786,892,1052,1177,1287,1440,1567,1679,1923,2098,2209,2373,2501,2662,2817,2885,2952",
                         "endColumns": "105,159,124,109,152,126,111,100,174,110,163,127,160,154,67,66,85",
                         "endOffsets": "887,1047,1172,1282,1435,1562,1674,1775,2093,2204,2368,2496,2657,2812,2880,2947,3033"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\pulid\\.gradle\\caches\\transforms-3\\d9d38ec9344928c1b01c151ec647a95a\\transformed\\browser-1.5.0\\res\\values-cs\\values-cs.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,157,260,374",
+                        "endColumns": "101,102,113,100",
+                        "endOffsets": "152,255,369,470"
+                    },
+                    "to": {
+                        "startLines": "27,28,29,30",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3038,3140,3243,3357",
+                        "endColumns": "101,102,113,100",
+                        "endOffsets": "3135,3238,3352,3453"
                     }
                 }
             ]

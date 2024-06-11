@@ -1,38 +1,46 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
-import 'package:global_gathering_application_1/repository/comment/comment_repository.dart';
-import 'package:global_gathering_application_1/repository/comment/comment_repository_impl.dart';
-import 'package:global_gathering_application_1/repository/event/event_repository.dart';
-import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
 import 'package:global_gathering_application_1/screens/home/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:global_gathering_application_1/bloc/comment/comment_bloc.dart';
+import 'package:global_gathering_application_1/bloc/event/event_bloc.dart';
+import 'package:global_gathering_application_1/repository/event/event_repository.dart';
+import 'package:global_gathering_application_1/repository/event/event_repository_impl.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 
 class CreateEventWidget extends StatefulWidget {
   const CreateEventWidget({Key? key}) : super(key: key);
 
   @override
-  State<CreateEventWidget> createState() => _CreateCommentWidgetState();
+  State<CreateEventWidget> createState() => _CreateEventWidgetState();
 }
 
-class _CreateCommentWidgetState extends State<CreateEventWidget> {
+class _CreateEventWidgetState extends State<CreateEventWidget> {
   final _formEvent = GlobalKey<FormState>();
   final nameTextController = TextEditingController();
   final descripcionTextController = TextEditingController();
   final urlTextController = TextEditingController();
-  final latitudeTextController = TextEditingController();
-  final longitudeTextController = TextEditingController();
   final priceTextController = TextEditingController();
   final ciudadTextController = TextEditingController();
 
   late EventRepository eventRepository;
   late EventBloc _eventBloc;
 
+  // Variables para el mapa
+  Completer<GoogleMapController> _controller = Completer();
+  late LatLng _selectedPosition;
+  Set<Marker> _markers = {};
+
+  // Variables para la fecha
+  DateTime _selectedDate = DateTime.now();
+
   @override
   void initState() {
     eventRepository = EventRepositoryImpl();
     _eventBloc = EventBloc(eventRepository);
+    _selectedPosition =
+        LatLng(37.3955175804586, -6.012685443168737); // Coordenadas iniciales
     super.initState();
   }
 
@@ -41,8 +49,6 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
     nameTextController.dispose();
     descripcionTextController.dispose();
     urlTextController.dispose();
-    latitudeTextController.dispose();
-    longitudeTextController.dispose();
     priceTextController.dispose();
     ciudadTextController.dispose();
     _eventBloc.close();
@@ -51,83 +57,72 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      BlocProvider.value(
-        value: _eventBloc,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: BlocConsumer<EventBloc, EventState>(
-              buildWhen: (context, state) {
-                return state is EventInitial ||
-                    state is CreateEventSucess ||
-                    state is GetEventError ||
-                    state is GetEventFetchLoading;
-              },
-              builder: (context, state) {
-                if (state is CreateEventSucess) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  });
-                } else if (state is GetEventError) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Error'),
-                        content: Text('The event cant be created'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
+    return BlocProvider(
+      create: (context) => _eventBloc,
+      child: Scaffold(
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocConsumer<EventBloc, EventState>(
+                buildWhen: (context, state) {
+                  return state is EventInitial ||
+                      state is CreateEventSucess ||
+                      state is GetEventError ||
+                      state is GetEventFetchLoading;
+                },
+                builder: (context, state) {
+                  if (state is CreateEventSucess) {
+                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
                       );
-                    },
-                  );
-                } else if (state is GetEventFetchLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return Center(child: _buildEventForm());
-              },
-              listener: (BuildContext context, EventState state) {}),
+                    });
+                  } else if (state is GetEventError) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('The event cant be created'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else if (state is GetEventFetchLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return _buildEventForm();
+                },
+                listener: (BuildContext context, EventState state) {},
+              ),
+            )
+          ],
         ),
-      )
-    ]);
+      ),
+    );
   }
 
-  _buildEventForm() {
-    nameTextController.text = 'Paseo a Caballo por Triana';
-    descripcionTextController.text =
-        'Paseo por los encatandores callejones de Triana';
-    urlTextController.text =
-        'https://www.diariodesevilla.es/2020/09/08/sevilla/parada-caballo-Archivo-Indias-Sevilla_1499560215_125430247_1200x675.jpg';
-    ciudadTextController.text = 'Sevilla';
-    latitudeTextController.text = '37.3955175804586';
-    longitudeTextController.text = '-6.012685443168737';
-    priceTextController.text = '25';
+  Widget _buildEventForm() {
     return Form(
       key: _formEvent,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 3.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Event Information',
-              style: GoogleFonts.manrope(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
             TextFormField(
               controller: nameTextController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Event Name',
-                border: OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -137,11 +132,11 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
               },
             ),
             const SizedBox(height: 16),
+
             TextFormField(
               controller: descripcionTextController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Description',
-                border: OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -151,85 +146,118 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
               },
             ),
             const SizedBox(height: 16),
+
             TextFormField(
               controller: urlTextController,
-              decoration: const InputDecoration(
-                labelText: 'Image url',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Image URL',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter the image url';
+                  return 'Please enter the image URL';
                 }
                 return null;
               },
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: ciudadTextController,
-              decoration: const InputDecoration(
-                labelText: 'City',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the city';
-                }
-                return null;
-              },
+            // Precio y Ciudad en la misma línea
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Precio
+                      TextFormField(
+                        controller: priceTextController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Price',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the price';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Ciudad
+                      TextFormField(
+                        controller: ciudadTextController,
+                        decoration: InputDecoration(
+                          labelText: 'City',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the city';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: latitudeTextController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Latitude',
-                border: OutlineInputBorder(),
+            // Selector de fecha
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _selectDate(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                          255, 20, 12, 71), // Color de fondo personalizado
+                    ),
+                    child: Text(
+                      'Select Date',
+                      style: GoogleFonts.manrope(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16), // Espacio entre el botón y el texto
+                  Expanded(
+                    child: Text(
+                      'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate)}',
+                      style: GoogleFonts.manrope(),
+                      textAlign: TextAlign.end, // Alinear el texto a la derecha
+                    ),
+                  ),
+                ],
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the latitude';
-                }
-                return null;
-              },
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: longitudeTextController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Longitude',
-                border: OutlineInputBorder(),
+            // Mapa para seleccionar la ubicación
+            Container(
+              height: 300,
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _selectedPosition,
+                  zoom: 15,
+                ),
+                onTap: _selectLocation,
+                markers: _markers,
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the longitude';
-                }
-                return null;
-              },
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: priceTextController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                labelText: 'Price',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the price';
-                }
-                return null;
-              },
-            ),
+            // Botón para crear el evento
             ElevatedButton(
               onPressed: () {
                 if (_formEvent.currentState!.validate()) {
-                  final double latitude =
-                      double.tryParse(latitudeTextController.text) ?? 0.0;
-                  final double longitude =
-                      double.tryParse(longitudeTextController.text) ?? 0.0;
                   final double price =
                       double.tryParse(priceTextController.text) ?? 0.0;
 
@@ -238,10 +266,11 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
                       nameTextController.text,
                       descripcionTextController.text,
                       urlTextController.text,
-                      latitude,
-                      longitude,
+                      _selectedPosition.latitude,
+                      _selectedPosition.longitude,
                       price,
                       ciudadTextController.text,
+                      _selectedDate, // Pasar la fecha seleccionada
                     ),
                   );
                 }
@@ -263,5 +292,37 @@ class _CreateCommentWidgetState extends State<CreateEventWidget> {
         ),
       ),
     );
+  }
+
+  void _selectLocation(LatLng position) {
+    setState(() {
+      _selectedPosition = position;
+      _markers = {Marker(markerId: MarkerId('selected'), position: position)};
+    });
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+    if (_selectedPosition != null) {
+      setState(() {
+        _markers = {
+          Marker(markerId: MarkerId('selected'), position: _selectedPosition)
+        };
+      });
+    }
+  }
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
   }
 }
