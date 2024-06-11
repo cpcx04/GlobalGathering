@@ -16,6 +16,17 @@ class EventBloc extends Bloc<GetEventEvent, EventState> {
     on<DoAssignedEvent>(_onAssignedEvent);
     on<DoGetMyEvent>(_onMyEvents);
     on<DoCreateEvent>(_onCreateEvent);
+    on<GetEventListEvent>(_onFetchEventList);
+  }
+
+  void _onFetchEventList(
+      GetEventListEvent event, Emitter<EventState> emit) async {
+    try {
+      final eventList = await _eventRepository.getEvents();
+      emit(GetEventFetchSucess(eventList));
+    } catch (e) {
+      emit(GetEventError(e.toString()));
+    }
   }
 
   void _onEventFetchList(GetEventEvent event, Emitter<EventState> emit) async {
@@ -59,7 +70,8 @@ class EventBloc extends Bloc<GetEventEvent, EventState> {
           latitude: event.latitude,
           longitude: event.longitude,
           price: event.price,
-          ciudad: event.ciudad);
+          ciudad: event.ciudad,
+          date: event.selectedDate);
       final EventResponse eventResponse =
           await _eventRepository.createAevent(addEvent);
       emit(CreateEventSucess(eventResponse));

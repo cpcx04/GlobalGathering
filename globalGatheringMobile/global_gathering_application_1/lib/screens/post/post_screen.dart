@@ -137,12 +137,17 @@ class _PostScreenState extends State<PostScreen> {
   Widget _postList() {
     return BlocBuilder<PostBloc, PostState>(builder: (context, state) {
       if (state is GetAllMyPostFetchSuccess) {
+        // Filtra y ordena la lista de posts por fecha de creación
+        final filteredPosts =
+            state.posts.where((post) => post.createdAt != null).toList();
+        filteredPosts.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+
         return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: state.posts.length,
+          itemCount: filteredPosts.length,
           itemBuilder: (context, index) {
-            final post = state.posts[index];
+            final post = filteredPosts[index];
             return PostWidget(
               comment: post.comment!,
               event: post.relatedEvent!,

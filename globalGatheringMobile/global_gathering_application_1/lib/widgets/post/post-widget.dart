@@ -78,31 +78,63 @@ class PostWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Spacer(),
-                PopupMenuButton(
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      child: Text('Ver Evento'),
-                    ),
-                    PopupMenuItem(
-                      child: Text('Ver usuario'),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
-          FutureBuilder<ImageProvider>(
-            future: _loadImage(imagePath),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Failed to load image'));
-              } else {
-                return Image(image: snapshot.data!);
-              }
+          GestureDetector(
+            onTap: () {
+              // Mostrar la imagen en pantalla completa al tocarla
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => Scaffold(
+                    appBar: AppBar(),
+                    body: Center(
+                      child: Hero(
+                        tag: imagePath,
+                        child: FutureBuilder<ImageProvider>(
+                          future: _loadImage(imagePath),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                  child: Text('Failed to load image'));
+                            } else {
+                              return InteractiveViewer(
+                                child: Image(
+                                  image: snapshot.data!,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
             },
+            child: Hero(
+              tag: imagePath,
+              child: FutureBuilder<ImageProvider>(
+                future: _loadImage(imagePath),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Failed to load image'));
+                  } else {
+                    return Image(
+                      image: snapshot.data!,
+                      fit: BoxFit.cover,
+                    );
+                  }
+                },
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
