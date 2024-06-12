@@ -12,10 +12,10 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("SataApp for Schools")
+                        .title("GlobalGathering")
                         .version("1.0")
-                        .description("App to control the equipment of a school")
-                        .license(new License().name("Cristian Pulido General License").url("https://github.com/cpcx04/Satapp")));
+                        .description("App to share events with the world")
+                        .license(new License().name("Cristian Pulido General License").url("https://github.com/cpcx04/GlobalGathering")));
     }
 
 }

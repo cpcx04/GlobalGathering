@@ -104,7 +104,8 @@ public class SecurityConfig {
                                                 antMatcher("/auth/**"),
                                                 antMatcher("/swagger/**"),
                                                 antMatcher("/swagger-ui/**"),
-                                                antMatcher("/v3/api-docs/**"),
+                                                antMatcher("/swagger-ui-miapi.html/**"),
+                                                antMatcher("/api-docs/**"),
                                                 antMatcher("/api-docs"),
                                                 antMatcher("/error")
                                 ));
