@@ -5,6 +5,7 @@ export interface ClienteResponse {
   nombre: string
   role: string
   createdAt: any
+  banned:boolean
 }
 export interface ClienteDto {
   username: string

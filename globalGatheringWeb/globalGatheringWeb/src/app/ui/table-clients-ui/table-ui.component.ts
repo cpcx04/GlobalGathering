@@ -8,11 +8,13 @@ import { ClienteResponse, ClienteDto } from '../../models/clients.interface';
   styleUrls: ['./table-ui.component.css']
 })
 export class TableUiComponent implements OnInit {
+
   searchQuery: string = '';
   clientes: ClienteResponse[] = [];
   selectedCliente: ClienteResponse | null = null;
   isDeleteModalOpen: boolean = false;
   isEditModalOpen: boolean = false;
+  isBanModalOpen : boolean = false;
   errorMessage: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -45,6 +47,11 @@ export class TableUiComponent implements OnInit {
   deleteUserConfirmation(cliente: ClienteResponse) {
     this.selectedCliente = cliente;
     this.isDeleteModalOpen = true;
+  }
+
+  banUserConfirmation(cliente: ClienteResponse) {
+    this.selectedCliente = cliente;
+    this.isBanModalOpen = true;
   }
 
   cancelEditUser(){
@@ -81,6 +88,25 @@ export class TableUiComponent implements OnInit {
       );
     }
   }
+    cancelBanUser() {
+        this.isBanModalOpen = false;
+        this.selectedCliente = null;
+      }
+    confirmBanUser() {
+      if (this.selectedCliente) {
+        this.clienteService.banClient(this.selectedCliente.username).subscribe(
+          () => {
+            console.log('Cliente baneado exitosamente');
+            this.isBanModalOpen = false;
+            this.selectedCliente = null;
+          },
+          error => {
+            console.error('Error al banear el cliente:', error);
+            this.errorMessage = 'Error occurred: ' + error.message; // Assuming error has a 'message' property
+          }
+        );
+      }
+    }
   
 
   saveEditedUser() {

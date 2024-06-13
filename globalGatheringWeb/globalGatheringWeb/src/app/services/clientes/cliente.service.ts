@@ -28,6 +28,20 @@ export class ClienteService {
         })
       );
   }
+  getBannedClients(): Observable<ClienteResponse[]> {
+    const authToken = localStorage.getItem(this.authTokenKey);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + authToken
+    });
+    return this.http.get<ClienteResponse[]>(`${this.apiUrl}admin/clients/banned`, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'An error occurred while fetching clients.';
+          // Agregar aquí la lógica para manejar los diferentes tipos de errores si es necesario
+          return throwError(errorMessage);
+        })
+      );
+  }
 
   editClient(username: string, clientDto: ClienteDto): Observable<ClienteResponse> {
     const authToken = localStorage.getItem(this.authTokenKey);
@@ -54,6 +68,22 @@ export class ClienteService {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           let errorMessage = 'An error occurred while deleting the client.';
+          // Agregar aquí la lógica para manejar los diferentes tipos de errores si es necesario
+          return throwError(errorMessage);
+        })
+      );
+  }
+  banClient(username: string): Observable<any> {
+    const authToken = localStorage.getItem(this.authTokenKey);
+    console.log(authToken);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + authToken,
+    });
+    return this.http.put(`${this.apiUrl}admin/clients/ban/${username}`, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error)
+          let errorMessage = 'An error occurred while banning the client.';
           // Agregar aquí la lógica para manejar los diferentes tipos de errores si es necesario
           return throwError(errorMessage);
         })
