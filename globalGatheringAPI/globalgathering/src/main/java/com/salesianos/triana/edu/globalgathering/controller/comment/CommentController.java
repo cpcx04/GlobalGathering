@@ -100,7 +100,7 @@ public class CommentController {
                                     {
                                         "avatar": "https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png",
                                         "username": "cristianpc",
-                                        "content": "Me parece increible la calva de pedro"
+                                        "content": "Me parece increible la basilica de pedro"
                                     }
                                     """) }) }),
             @ApiResponse(responseCode = "400", description = "The comment cant be deleted", content = @Content)
