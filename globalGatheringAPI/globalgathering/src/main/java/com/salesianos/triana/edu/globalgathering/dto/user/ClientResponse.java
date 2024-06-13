@@ -19,6 +19,7 @@ public class ClientResponse {
 
     protected String id;
     protected String username, email, nombre, role;
+    protected boolean banned;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     protected LocalDateTime createdAt;
@@ -35,6 +36,7 @@ public class ClientResponse {
                 .nombre(user.getFullName())
                 .createdAt(user.getCreatedAt())
                 .role(getRole(user.getAuthorities()))
+                .banned(user.isBanned())
                 .build();
     }
 

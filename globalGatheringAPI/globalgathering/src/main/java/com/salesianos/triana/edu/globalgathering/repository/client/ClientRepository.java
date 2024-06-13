@@ -2,6 +2,7 @@ package com.salesianos.triana.edu.globalgathering.repository.client;
 
 import com.salesianos.triana.edu.globalgathering.dto.comment.GetAllComents;
 import com.salesianos.triana.edu.globalgathering.model.Client;
+import com.salesianos.triana.edu.globalgathering.model.ClientWorker;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Optional<Client> findFirstByUsername(String username);
 
     Optional<Client> findByUsername(String username);
+
+
 
     boolean existsByUsernameIgnoreCase(String username);
 

@@ -1,7 +1,7 @@
 INSERT INTO client (id, username, full_name, password, email,avatar, role, account_non_expired, account_non_locked, credentials_non_expired, enabled, banned) VALUES ('e062bb13-56e8-43ff-94d8-59adea71a0c6', 'cristianpc', 'Cristian Pulido', '{bcrypt}$2a$10$O9gBlJqfCKUMVkDYxYs/puwiXpuVfWTMTBjql6x07T8bl8yXXBSi.', 'pulidocabellochristian@gmail.com','https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png', 'ADMIN', TRUE, TRUE, TRUE, TRUE,FALSE);
 INSERT  INTO client_worker (id, jefe)  VALUES ('e062bb13-56e8-43ff-94d8-59adea71a0c6', TRUE);
 -- Usuario 2
-INSERT INTO client (id, username, full_name, password, email, avatar, role, account_non_expired, account_non_locked, credentials_non_expired, enabled,banned) VALUES ('e9d1486c-2b1c-4b8e-87d3-3d158b7fb8bf', 'juancarlosgamer', 'Nombre Usuario 2', '{bcrypt}$2a$10$O9gBlJqfCKUMVkDYxYs/puwiXpuVfWTMTBjql6x07T8bl8yXXBSi.', 'usuario2@gmail.com', 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector.png', 'USER', TRUE, TRUE, TRUE, TRUE,FALSE);
+INSERT INTO client (id, username, full_name, password, email, avatar, role, account_non_expired, account_non_locked, credentials_non_expired, enabled,banned) VALUES ('e9d1486c-2b1c-4b8e-87d3-3d158b7fb8bf', 'juancarlosgamer', 'Nombre Usuario 2', '{bcrypt}$2a$10$O9gBlJqfCKUMVkDYxYs/puwiXpuVfWTMTBjql6x07T8bl8yXXBSi.', 'usuario2@gmail.com', 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector.png', 'USER', TRUE, TRUE, TRUE, TRUE,TRUE);
 
 INSERT INTO client_worker (id, jefe) VALUES ('e9d1486c-2b1c-4b8e-87d3-3d158b7fb8bf', FALSE);
 

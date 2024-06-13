@@ -31,7 +31,7 @@ public class JwtUserResponse extends ClientResponse {
     }
 
     public JwtUserResponse(Client user, String accessToken, String refreshToken) {
-        super(user.getId().toString(), user.getUsername(), user.getFullName(), user.getEmail(), user.getRole().toString(), user.getCreatedAt());
+        super(user.getId().toString(), user.getUsername(), user.getFullName(), user.getEmail(), user.getRole().toString(), user.isBanned(), user.getCreatedAt());
         this.token = accessToken;
         this.refreshToken = refreshToken;
     }

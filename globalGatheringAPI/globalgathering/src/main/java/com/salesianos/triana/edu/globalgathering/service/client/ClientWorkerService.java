@@ -10,6 +10,9 @@ import com.salesianos.triana.edu.globalgathering.model.PermissionRole;
 import com.salesianos.triana.edu.globalgathering.repository.client.ClientWorkerRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -77,15 +80,28 @@ public class ClientWorkerService {
     }
 
     @Transactional
-    public void banUser(String username, UserDetails userDetails) {
+    public void banUser(String username) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isAdmin) {
+            throw new AccessDeniedException("Only admins can ban users.");
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (username.equals(userDetails.getUsername())) {
             throw new SameUsernameException();
-        } else {
-            ClientWorker userToBan = userWorkerRepository.findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
-
-            userToBan.setBanned(true);
-            userWorkerRepository.save(userToBan);
         }
+
+        ClientWorker userToBan = userWorkerRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        userToBan.setBanned(!userToBan.isBanned());
+        userWorkerRepository.save(userToBan);
+    }
+
+    public List<ClientResponse> getAllBannedClients() {
+        List<ClientWorker> getClients = userWorkerRepository.findAll();
+        return getClients.stream().map(ClientResponse::of).toList();
     }
 }

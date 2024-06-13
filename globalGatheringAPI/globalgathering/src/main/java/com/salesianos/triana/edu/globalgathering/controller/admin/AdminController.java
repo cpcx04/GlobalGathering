@@ -76,6 +76,45 @@ public class AdminController {
         List<ClientResponse> clients = userWorkerService.getAllClients();
         return ResponseEntity.ok(clients);
     }
+    @GetMapping("/clients/banned")
+    @Operation(summary = "findAllBanned", description = "Find All Single Clients in the database that are banned")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The clients has been found", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ClientResponse.class)), examples = {
+                            @ExampleObject(value = """
+                                    [
+                                        {
+                                            "id": "e062bb13-56e8-43ff-94d8-59adea71a0c6",
+                                            "username": "cristianpc",
+                                            "email": "pulidocabellochristian@gmail.com",
+                                            "nombre": "Cristian Pulido",
+                                            "role": "ROLE_ADMIN",
+                                            "createdAt": null
+                                        },
+                                        {
+                                            "id": "e9d1486c-2b1c-4b8e-87d3-3d158b7fb8bf",
+                                            "username": "juancarlosgamer",
+                                            "email": "usuario2@gmail.com",
+                                            "nombre": "Nombre Usuario 2",
+                                            "role": "ROLE_USER",
+                                            "createdAt": null
+                                        },
+                                        {
+                                            "id": "6465de6a-102c-4a05-8151-9fe209ecf534",
+                                            "username": "viajerotrapero",
+                                            "email": "usuario3@gmail.com",
+                                            "nombre": "Nombre Usuario 3",
+                                            "role": "ROLE_USER",
+                                            "createdAt": null
+                                        }
+                                    ]
+                                                         """) }) }),
+            @ApiResponse(responseCode = "404", description = "Unable to find any CLIENTS .", content = @Content),
+    })
+    public ResponseEntity<List<ClientResponse>> getAllClientsBanned() {
+        List<ClientResponse> clients = userWorkerService.getAllBannedClients();
+        return ResponseEntity.ok(clients);
+    }
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The client has been edited", content = {
@@ -121,8 +160,8 @@ public class AdminController {
     })
     @PutMapping("/clients/ban/{username}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> banAUser( @AuthenticationPrincipal UserDetails userDetails,@PathVariable String username) {
-            userWorkerService.banUser(username, userDetails);
+    public ResponseEntity<?> banAUser(@PathVariable String username) {
+            userWorkerService.banUser(username);
             return ResponseEntity.noContent().build();
         }
 }
