@@ -62,6 +62,25 @@
 | `flutter_lints` | ^2.0.0 | Paquete para manejo de Dart |
 
 
+### Spring Boot Dependecy
+
+| Nombre | Descripción |
+| --- | --- |
+| [spring-boot-starter-data-jpa](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependencies.starter) | Inicio para usar Spring Data JPA con Hibernate. |
+| [spring-boot-starter-validation](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependencies.starter) | Inicio para utilizar la validación de Java Bean con Hibernate Validator. |
+| [spring-boot-starter-web](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependencies.starter) | Inicio para construir aplicaciones web con Spring MVC. |
+| [spring-boot-starter-security](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependencies.starter) | Inicio para usar Spring Security. |
+| [spring-security-test](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#test) | Soporte de prueba para Spring Security. |
+| [h2](https://www.h2database.com/html/main.html) | H2 Database, una base de datos en memoria. |
+| [postgresql](https://jdbc.postgresql.org/) | Controlador JDBC para PostgreSQL. |
+| [lombok](https://projectlombok.org/) | Lombok, una biblioteca para simplificar el código Java. |
+| [jjwt-api](https://github.com/jwtk/jjwt) | Java JWT: Token Web JSON para Java y Android. |
+| [jjwt-impl](https://github.com/jwtk/jjwt) | Implementación de Java JWT: Token Web JSON para Java y Android. |
+| [jjwt-jackson](https://github.com/jwtk/jjwt) | Implementación de Jackson para Java JWT: Token Web JSON para Java y Android. |
+| [spring-boot-starter-test](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependencies.starter) | Inicio para probar aplicaciones Spring Boot. |
+| [springdoc-openapi-starter-webmvc-ui](https://springdoc.org/) | Springdoc OpenAPI UI para Spring Web MVC. |
+| [swagger-annotations-jakarta](https://swagger.io/specification/) | Anotaciones Swagger para Jakarta API. |
+
 ### Características Principales
 
 - **Descubrimiento de Eventos:** Explora una amplia gama de eventos categorizados por temas, ubicación y fecha.
@@ -84,61 +103,6 @@
 - **Interacción Global:** Conecta con participantes de todo el mundo a través de salas de chat, transmisiones en vivo y funciones interactivas.
 - **Seguridad y Autenticación:** Garantizamos la seguridad de los usuarios mediante autenticación segura y encriptación de datos.
 - **Perfil Personalizado:** Crea un perfil único, destacando tus intereses, eventos pasados y contribuciones a la comunidad.
-
-
-## 🚀 Estado
-
-Actualmente en desarrollo activo. 
-Hasta el momento las funcionalidades de las cuales goza mi proyecto son los siguiente ; 
-
-## Para flutter podemos observar lo siguiente 
-
-### Autenticación en Flutter - Documentación
-
-- AuthRepository y AuthRepositoryImpl
-
-### AuthRepository:
-
-- **Propósito:** Define una interfaz abstracta para la gestión de autenticación y registro.
-- **Métodos:**
-  - `login(LoginDto loginDto)`: Realiza una solicitud de inicio de sesión.
-  - `register(RegisterDto registerDto)`: Realiza una solicitud de registro.
-
-### AuthRepositoryImpl:
-
-- **Propósito:** Implementa `AuthRepository` y maneja la comunicación con el servidor para autenticación y registro.
-- **Métodos:**
-  - `login(LoginDto loginDto)`: Realiza una solicitud HTTP POST para el inicio de sesión.
-  - `register(RegisterDto registerDto)`: Realiza una solicitud HTTP POST para el registro.
-
-## LoginBloc
-
-- **Propósito:** Gestiona la lógica de negocio relacionada con la autenticación.
-- **Atributos:**
-  - `authRepository`: Instancia del repositorio de autenticación.
-  - `_prefs`: Instancia futura de SharedPreferences para gestionar almacenamiento local.
-- **Métodos:**
-  - `_doLogin(DoLoginEvent event, Emitter<LoginState> emit)`: Maneja el evento de inicio de sesión, realiza la solicitud al repositorio y emite estados en consecuencia.
-
-## LoginEvent y LoginState
-
-### LoginEvent:
-
-- **Propósito:** Define eventos relacionados con el bloc de inicio de sesión.
-- **Eventos:**
-  - `DoLoginEvent`: Evento de inicio de sesión con credenciales de usuario.
-
-### LoginState:
-
-- **Propósito:** Define estados relacionados con el bloc de inicio de sesión.
-- **Estados:**
-  - `LoginInitial`: Estado inicial del bloc.
-  - `DoLoginLoading`: Estado durante el proceso de inicio de sesión.
-  - `DoLoginSuccess`: Estado cuando el inicio de sesión es exitoso.
-  - `DoLoginError`: Estado cuando hay un error en el inicio de sesión.
-
-### USO
-
  -Logueo,creacion de comentario y de eventos 
  <p align="center">
 <a href="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/gifLogin.gif" target="_blank"><img src="https://github.com/cpcx04/GlobalGathering/blob/main/globalGatheringMobile/global_gathering_application_1/assets/icons/gifLogin.gif" alt="Demostración de Uso" width="300"></a>
@@ -170,16 +134,3 @@ $ cd globalGatheringMobile/global_gathering_application_1
 $ flutter pub get
 $ flutter run
 ```
-
-## 📜 License
-
-This software is licensed under the [APACHE](https://github.com/cpcx04/GlobalGathering/blob/main/LICENSE) ©.
-
-
----
-
-<p align="center">
-  ¡Únete a nosotros en la construcción de un mundo más conectado y colaborativo!
-</p>
-
-
